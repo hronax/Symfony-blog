@@ -1,3 +1,5 @@
+/** Form block */
+
 .blogger-notice {
     text-align: center;
     padding: 10px;
@@ -62,6 +64,8 @@ form.blogger ul li {
     line-height: 30px
 }
 
+/** Blog block */
+
 .blog {
     margin-bottom: 20px;
 }
@@ -98,4 +102,33 @@ form.blogger ul li {
 .blog img.large {
     width: 300px;
     min-height: 165px;
+}
+
+/** Comments block**/
+.comments {
+    clear: both;
+}
+
+.comments .odd {
+    background: #eee;
+}
+
+.comments .comment {
+    padding: 20px;
+}
+
+.comments .comment p {
+    margin-bottom: 0;
+}
+
+.comments h3 {
+    background: #eee;
+    padding: 10px;
+    font-size: 20px;
+    margin-bottom: 20px;
+    clear: both;
+}
+
+.comments .previous-comments {
+    margin-bottom: 20px;
 }
