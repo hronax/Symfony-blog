@@ -26,9 +26,9 @@
         "doctrine/migrations": "dev-master"
     },
     "require-dev": {
-        "behat/symfony2-extension": "dev-master",
-        "behat/mink-extension": "dev-master",
-        "behat/mink-browserkit-driver": "dev-master",
+        "behat/symfony2-extension": "*",
+        "behat/mink-extension": "*",
+        "behat/mink-browserkit-driver": "*",
         "behat/mink-goutte-driver": "*"
     },
     "scripts": {
