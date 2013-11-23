@@ -25,6 +25,12 @@
         "doctrine/doctrine-migrations-bundle": "dev-master",
         "doctrine/migrations": "dev-master"
     },
+    "require-dev": {
+        "behat/symfony2-extension": "dev-master",
+        "behat/mink-extension": "dev-master",
+        "behat/mink-browserkit-driver": "dev-master",
+        "behat/mink-goutte-driver": "*"
+    },
     "scripts": {
         "post-install-cmd": [
             "Incenteev\\ParameterHandler\\ScriptHandler::buildParameters",
