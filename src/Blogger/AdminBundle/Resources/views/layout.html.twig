@@ -1,0 +1,16 @@
+{% extends '::admin_base.html.twig' %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    {% stylesheets
+    '@BloggerAdminBundle/Resources/public/css/*'
+    output='css/blogger.css'
+    filter='?yiu_css'
+    %}
+    <link href="{{ asset_url }}" rel="stylesheet" media="screen" />
+    {% endstylesheets %}
+{% endblock %}
+
+{% block sidebar %}
+    {% render(controller("BloggerAdminBundle:Default:sidebar")) %}
+{% endblock %}

@@ -1,3 +1,3 @@
 blogger_admin_homepage:
-    pattern:  /hello/{name}
+    pattern:  /backend
     defaults: { _controller: BloggerAdminBundle:Default:index }
