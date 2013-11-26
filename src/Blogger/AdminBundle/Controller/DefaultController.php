@@ -8,7 +8,19 @@ class DefaultController extends Controller
 {
     public function indexAction()
     {
-        return $this->render('BloggerAdminBundle:Default:index.html.twig');
+        $em = $this->getDoctrine()
+            ->getManager();
+
+        $blogs = $em->getRepository('BloggerBlogBundle:Blog')
+            ->getLatestBlogs();
+
+        return $this->render('BloggerAdminBundle:Default:index.html.twig', array(
+            'blogs' => $blogs
+        ));
+    }
+
+    public function newBlogAction() {
+        return $this->render('BloggerAdminBundle:Blog:new.html.twig');
     }
 
     public function sidebarAction()

@@ -1,3 +1,35 @@
-blogger_admin_homepage:
-    pattern:  /backend
+BloggerAdminBundle_homepage:
+    pattern:  /
     defaults: { _controller: BloggerAdminBundle:Default:index }
+
+BloggerAdminBundle_blog_edit:
+    pattern:  /{id}/edit
+    defaults: { _controller: BloggerAdminBundle:Blog:edit }
+    requirements:
+        _method:  POST
+        id: \d+
+
+BloggerAdminBundle_blog_new:
+    pattern:  /newblog
+    defaults: { _controller: BloggerAdminBundle:Blog:new }
+    requirements:
+        _method:  GET
+
+BloggerAdminBundle_blog_delete:
+    pattern:  /{id}/delete-blog
+    defaults: { _controller: BloggerAdminBundle:Blog:delete }
+    requirements:
+        _method:  POST
+        blog_id: \d+
+
+BloggerAdminBundle_blog_create:
+    pattern:  /create-blog
+    defaults: { _controller: BloggerAdminBundle:Blog:create }
+    requirements:
+        _method:  GET|POST
+
+BloggerAdminBundle_default_newblog:
+    pattern:  /new-blog
+    defaults: { _controller: BloggerAdminBundle:Default:newBlog }
+    requirements:
+        _method:  GET

@@ -257,6 +257,7 @@ class Blog
 
         $this->setCreated(new \DateTime());
         $this->setUpdated(new \DateTime());
+        $this->setAuthor("Admin");
     }
 
     /**

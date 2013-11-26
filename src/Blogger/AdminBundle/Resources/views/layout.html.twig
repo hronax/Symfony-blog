@@ -3,9 +3,9 @@
 {% block stylesheets %}
     {{ parent() }}
     {% stylesheets
-    '@BloggerAdminBundle/Resources/public/css/*'
-    output='css/blogger.css'
-    filter='?yiu_css'
+        '@BloggerAdminBundle/Resources/public/css/*'
+        output='css/admin.css'
+        filter='?yiu_css'
     %}
     <link href="{{ asset_url }}" rel="stylesheet" media="screen" />
     {% endstylesheets %}

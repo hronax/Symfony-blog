@@ -3,5 +3,5 @@ BloggerBlogBundle:
     prefix:   /
 BloggerAdminBundle:
     resource: "@BloggerAdminBundle/Resources/config/routing.yml"
-    prefix:   /
+    prefix:   /backend
 

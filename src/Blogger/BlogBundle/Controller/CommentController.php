@@ -49,7 +49,7 @@ class CommentController extends Controller
             );
         }
 
-        return $this->render('BloggerBlogBundle:Comment:create.html.twig', array(
+        return $this->render('BloggerBlogBundle:Comment:new.html.twig', array(
             'comment' => $comment,
             'form'    => $form->createView()
         ));
