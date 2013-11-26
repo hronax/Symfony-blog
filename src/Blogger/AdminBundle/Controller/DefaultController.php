@@ -19,10 +19,6 @@ class DefaultController extends Controller
         ));
     }
 
-    public function newBlogAction() {
-        return $this->render('BloggerAdminBundle:Blog:new.html.twig');
-    }
-
     public function sidebarAction()
     {
         return $this->render('BloggerAdminBundle:Default:sidebar.html.twig');

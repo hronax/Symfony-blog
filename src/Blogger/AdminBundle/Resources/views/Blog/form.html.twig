@@ -1,7 +1,7 @@
-<form action="{{ path('BloggerAdminBundle_blog_create') }}" method="post" {{ form_enctype(form) }} class="blogger">
+<form action="{{ path('BloggerAdminBundle_blog_submit') }}" method="post" {{ form_enctype(form) }} class="blogger">
     {{ form_widget(form) }}
     {{ form_rest(form) }}
     <p>
-        <input type="submit" value="Add">
+        <input type="submit" value="Save">
     </p>
 </form>

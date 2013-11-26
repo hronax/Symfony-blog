@@ -27,6 +27,7 @@ class BlogController extends Controller
 
         return $this->render('BloggerBlogBundle:Blog:show.html.twig', array(
             'blog'      => $blog,
+            'slug'      => $slug,
             'comments'  => $comments
         ));
     }

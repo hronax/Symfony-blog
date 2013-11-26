@@ -3,33 +3,27 @@ BloggerAdminBundle_homepage:
     defaults: { _controller: BloggerAdminBundle:Default:index }
 
 BloggerAdminBundle_blog_edit:
-    pattern:  /{id}/edit
-    defaults: { _controller: BloggerAdminBundle:Blog:edit }
+    pattern:  /edit/{blog_id}
+    defaults: { _controller: BloggerAdminBundle:Blog:editBlog }
     requirements:
-        _method:  POST
-        id: \d+
-
-BloggerAdminBundle_blog_new:
-    pattern:  /newblog
-    defaults: { _controller: BloggerAdminBundle:Blog:new }
-    requirements:
-        _method:  GET
-
-BloggerAdminBundle_blog_delete:
-    pattern:  /{id}/delete-blog
-    defaults: { _controller: BloggerAdminBundle:Blog:delete }
-    requirements:
-        _method:  POST
+        _method:  GET|POST
         blog_id: \d+
 
-BloggerAdminBundle_blog_create:
-    pattern:  /create-blog
-    defaults: { _controller: BloggerAdminBundle:Blog:create }
+BloggerAdminBundle_blog_delete:
+    pattern:  /delete/{blog_id}
+    defaults: { _controller: BloggerAdminBundle:Blog:delete }
+    requirements:
+        _method:  GET
+        blog_id: \d+
+
+BloggerAdminBundle_blog_submit:
+    pattern:  /sumbit-blog
+    defaults: { _controller: BloggerAdminBundle:Blog:submit }
     requirements:
         _method:  GET|POST
 
-BloggerAdminBundle_default_newblog:
+BloggerAdminBundle_blog_new:
     pattern:  /new-blog
-    defaults: { _controller: BloggerAdminBundle:Default:newBlog }
+    defaults: { _controller: BloggerAdminBundle:Blog:newBlog }
     requirements:
         _method:  GET

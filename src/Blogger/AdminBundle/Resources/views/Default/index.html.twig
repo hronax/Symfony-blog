@@ -2,14 +2,14 @@
 
 {% block body %}
     <h2>Edit Blogs:</h2>
-    <h2 id="add_blog"><a href="{{ path('BloggerAdminBundle_blog_create') }}">+ Add new Blog</a></h2>
+    <h2 id="add_blog"><a href="{{ path('BloggerAdminBundle_blog_new') }}">+ Add new Blog</a></h2>
     {% for blog in blogs %}
         <article class="blog">
             <header>
-                <h3><a href="{{ path('BloggerAdminBundle_blog_edit', { 'id': blog.id }) }}">{{ blog.title }}</a></h3>
+                <h3><a href="{{ path('BloggerAdminBundle_blog_edit', { 'blog_id': blog.id }) }}">{{ blog.title }}</a></h3>
             </header>
             <div class="date"><time datetime="{{ blog.created|date('c') }}">{{ blog.created|created_ago }}</time></div>
-            <a class="delete_link" href="{{ path('BloggerAdminBundle_blog_delete', { 'id': blog.id }) }}">Delete Blog</a>
+            <a class="delete_link" href="{{ path('BloggerAdminBundle_blog_delete', { 'blog_id': blog.id }) }}">Delete Blog</a>
         </article>
     {% else %}
         <p>There are no blog entries for symblog</p>
