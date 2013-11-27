@@ -6,10 +6,11 @@
     {% for blog in blogs %}
         <article class="blog posted{% if blog.posted %}{{ 1 }}{% else %}{{ 0 }}{% endif %}">
             <header>
-                <h3><a href="{{ path('BloggerAdminBundle_blog_edit', { 'blog_id': blog.id }) }}">{{ blog.title }}</a></h3>
+                <h3><a href="{{ path('BloggerAdminBundle_blog_edit', { 'blogId': blog.id }) }}">{{ blog.title }}</a></h3>
             </header>
             <div class="date"><time datetime="{{ blog.created|date('c') }}">{{ blog.created|created_ago }}</time></div>
-            <a class="delete_link" href="{{ path('BloggerAdminBundle_blog_delete', { 'blog_id': blog.id }) }}">Delete Blog</a>
+            <div class="category">{{ blog.category }}</div>
+            <a class="delete_link" href="{{ path('BloggerAdminBundle_blog_delete', { 'blogId': blog.id }) }}">Delete Blog</a>
         </article>
     {% else %}
         <p>There are no blog entries for symblog</p>

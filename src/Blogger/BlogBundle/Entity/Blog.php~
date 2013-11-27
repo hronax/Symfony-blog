@@ -278,6 +278,7 @@ class Blog
         $this->setCreated(new \DateTime());
         $this->setUpdated(new \DateTime());
         $this->setAuthor("Admin");
+        $this->setPosted(false);
     }
 
     /**
@@ -393,5 +394,17 @@ class Blog
     public function getPosted()
     {
         return $this->posted;
+    }
+
+    public function setTagString($tagString)
+    {
+        $this->tagString = $tagString;
+
+        return $this;
+    }
+
+    public function getTagString()
+    {
+        return $this->tagString;
     }
 }

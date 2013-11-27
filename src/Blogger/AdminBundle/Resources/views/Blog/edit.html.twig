@@ -1,6 +1,6 @@
 {% extends 'BloggerAdminBundle::layout.html.twig' %}
 
 {% block body %}
-    <h2>Edit the Blog: {{ blog_id }}</h2>
-    {{ render(controller('BloggerAdminBundle:Blog:edit', {'blog_id': blog_id})) }}
+    <h2>Edit the Blog id: {{ blogId }}</h2>
+    {{ render(controller('BloggerAdminBundle:Blog:edit', {'blogId': blogId})) }}
 {% endblock %}

@@ -1,7 +1,7 @@
 <?php
 namespace Blogger\BlogBundle\Entity;
 
-use Blogger\BlogBundle\HelpTools;
+use Blogger\BlogBundle\HelpTools\HelpTools;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Component\Console\Helper\Helper;
@@ -9,8 +9,9 @@ use Symfony\Component\Validator\Mapping\ClassMetadata;
 use Symfony\Component\Validator\Constraints\NotBlank;
 
 /**
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="Blogger\BlogBundle\Entity\Repository\CategoryRepository")
  * @ORM\Table(name="category")
+ * @ORM\HasLifecycleCallbacks()
  */
 class Category
 {
@@ -26,6 +27,8 @@ class Category
      */
     protected $blogs;
 
+    protected $blogCount;
+
     /**
      * @ORM\Column(type="string")
      */
@@ -39,13 +42,15 @@ class Category
     /**
      * @ORM\Column(type="boolean")
      */
-    protected $default;
+    protected $isDefault;
+
     /**
      * Constructor
      */
     public function __construct()
     {
         $this->blogs = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->default = false;
     }
     
     /**
@@ -112,9 +117,9 @@ class Category
      * @param boolean $default
      * @return Category
      */
-    public function setDefault($default)
+    public function setIsDefault($isDefault)
     {
-        $this->default = $default;
+        $this->isDefault = $isDefault;
     
         return $this;
     }
@@ -124,9 +129,21 @@ class Category
      *
      * @return boolean 
      */
-    public function getDefault()
+    public function getIsDefault()
     {
-        return $this->default;
+        return $this->isDefault;
+    }
+
+    public function setBlogCount($blogCount)
+    {
+        $this->blogCount = $blogCount;
+
+        return $this;
+    }
+
+    public function getBlogCount()
+    {
+        return $this->blogCount;
     }
 
     /**

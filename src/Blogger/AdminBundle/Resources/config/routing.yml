@@ -4,18 +4,18 @@ BloggerAdminBundle_homepage:
 
 ############### blogs
 BloggerAdminBundle_blog_edit:
-    pattern:  /edit/blog/{blog_id}
+    pattern:  /edit/blog/{blogId}
     defaults: { _controller: BloggerAdminBundle:Blog:editBlog }
     requirements:
         _method:  GET|POST
-        blog_id: \d+
+        blogId: \d+
 
 BloggerAdminBundle_blog_delete:
-    pattern:  /delete/blog/{blog_id}
+    pattern:  /delete/blog/{blogId}
     defaults: { _controller: BloggerAdminBundle:Blog:delete }
     requirements:
         _method:  GET
-        blog_id: \d+
+        blogId: \d+
 
 BloggerAdminBundle_blog_create:
     pattern:  /create-blog
@@ -24,11 +24,11 @@ BloggerAdminBundle_blog_create:
         _method:  GET|POST
 
 BloggerAdminBundle_blog_submitEdition:
-    pattern:  /edit-blog/{blog_id}
+    pattern:  /edit-blog/{blogId}
     defaults: { _controller: BloggerAdminBundle:Blog:submitEdition }
     requirements:
         _method:  GET|POST
-        blog_id: \d+
+        blogId: \d+
 
 BloggerAdminBundle_blog_new:
     pattern:  /new-blog
@@ -40,18 +40,18 @@ BloggerAdminBundle_blog_new:
 
 ############## categories
 BloggerAdminBundle_category_edit:
-    pattern:  /edit/category/{cat_id}
+    pattern:  /edit/category/{catId}
     defaults: { _controller: BloggerAdminBundle:Category:editBlog }
     requirements:
         _method:  GET|POST
-        cat_id: \d+
+        catId: \d+
 
 BloggerAdminBundle_category_delete:
-    pattern:  /delete/category/{cat_id}
+    pattern:  /delete/category/{catId}
     defaults: { _controller: BloggerAdminBundle:Category:delete }
     requirements:
         _method:  GET
-        cat_id: \d+
+        catId: \d+
 
 BloggerAdminBundle_category_create:
     pattern:  /create-category
@@ -60,11 +60,11 @@ BloggerAdminBundle_category_create:
         _method:  GET|POST
 
 BloggerAdminBundle_category_submitEdition:
-    pattern:  /edit-category/{cat_id}
+    pattern:  /edit-category/{catId}
     defaults: { _controller: BloggerAdminBundle:Category:submitEdition }
     requirements:
         _method:  GET|POST
-        cat_id: \d+
+        catId: \d+
 
 BloggerAdminBundle_category_new:
     pattern:  /new-category

@@ -4,12 +4,15 @@
     <h2>Edit Categories:</h2>
     <h2 id="add_blog"><a href="{{ path('BloggerAdminBundle_category_new') }}">+ Add new Category</a></h2>
     {% for cat in categories %}
-        <article class="blog">
+        <article class="blog isDefault{% if cat.isDefault %}{{ 1 }}{% else %}{{ 0 }}{% endif %}">
             <header>
-                <h3><a href="{{ path('BloggerAdminBundle_category_edit', { 'cat_id': cat.id }) }}">{{ cat.name }}</a></h3>
+                <h3><a href="{{ path('BloggerAdminBundle_category_edit', { 'catId': cat.id }) }}">{{ cat.name }}</a> | {{ cat.slug }}</h3>
             </header>
-            <div class="date">{{ cat.blogCount }} blogs</div>
-            <a class="delete_link" href="{{ path('BloggerAdminBundle_category_delete', { 'blog_id': blog.id }) }}">Delete Blog</a>
+            <div class="date">Blogs in category: {{ cat.blogCount }}</div>
+            {% if cat.isDefault %}
+            {% else %}
+                <a class="delete_link" href="{{ path('BloggerAdminBundle_category_delete', { 'catId': cat.id }) }}">Delete Category</a>
+            {% endif %}
         </article>
     {% else %}
         <p>There are no categories for symfony-blog</p>

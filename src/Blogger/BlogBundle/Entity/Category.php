@@ -27,8 +27,6 @@ class Category
      */
     protected $blogs;
 
-    protected $blogCount;
-
     /**
      * @ORM\Column(type="string")
      */
@@ -42,7 +40,7 @@ class Category
     /**
      * @ORM\Column(type="boolean")
      */
-    protected $default;
+    protected $isDefault;
 
     /**
      * Constructor
@@ -50,6 +48,7 @@ class Category
     public function __construct()
     {
         $this->blogs = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->isDefault = false;
     }
     
     /**
@@ -71,8 +70,6 @@ class Category
     public function setName($name)
     {
         $this->name = $name;
-
-        $this->setSlug($this->name);
 
         return $this;
     }
@@ -116,9 +113,9 @@ class Category
      * @param boolean $default
      * @return Category
      */
-    public function setDefault($default)
+    public function setIsDefault($isDefault)
     {
-        $this->default = $default;
+        $this->isDefault = $isDefault;
     
         return $this;
     }
@@ -128,21 +125,14 @@ class Category
      *
      * @return boolean 
      */
-    public function getDefault()
+    public function getIsDefault()
     {
-        return $this->default;
-    }
-
-    public function setBlogCount($blogCount)
-    {
-        $this->blogCount = $blogCount;
-
-        return $this;
+        return $this->isDefault;
     }
 
     public function getBlogCount()
     {
-        return $this->blogCount;
+        return $this->blogs->count();
     }
 
     /**
@@ -176,5 +166,10 @@ class Category
     public function getBlogs()
     {
         return $this->blogs;
+    }
+
+    public function __toString()
+    {
+        return $this->getName();
     }
 }

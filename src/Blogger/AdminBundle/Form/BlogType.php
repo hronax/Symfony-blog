@@ -18,6 +18,13 @@ class BlogType extends AbstractType
             ->add('title')
             ->add('blog')
             ->add(
+                'category',
+                null,
+                array(
+                    'required' => true,
+                )
+            )
+            ->add(
                 'image',
                 null,
                 array(

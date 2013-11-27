@@ -16,6 +16,9 @@ class BlogController extends Controller
     public function newAction()
     {
         $blog  = new Blog();
+        $em = $this->
+            getDoctrine();
+        $blog->setCategory($em->getRepository('BloggerBlogBundle:Category')->getDefaultCategory()[0]);
         $form  = $this->createForm(new BlogType(), $blog);
 
         return $this->render('BloggerAdminBundle:Blog:form.html.twig', array(
@@ -49,17 +52,17 @@ class BlogController extends Controller
         ));
     }
 
-    public function editBlogAction($blog_id) {
+    public function editBlogAction($blogId) {
         return $this->render('BloggerAdminBundle:Blog:edit.html.twig', array(
-            'blog_id' => $blog_id
+            'blogId' => $blogId
         ));
     }
 
-    public function editAction($blog_id)
+    public function editAction($blogId)
     {
         $em = $this->getDoctrine()
             ->getManager();
-        $blog = $em->getRepository('BloggerBlogBundle:Blog')->find($blog_id);
+        $blog = $em->getRepository('BloggerBlogBundle:Blog')->find($blogId);
 
         if (!$blog) {
             throw $this->createNotFoundException('Unable to find Blog post.');
@@ -74,11 +77,11 @@ class BlogController extends Controller
         ));
     }
 
-    public function submitEditionAction(Request $request, $blog_id)
+    public function submitEditionAction(Request $request, $blogId)
     {
         $em = $this->getDoctrine()
             ->getManager();
-        $blog = $em->getRepository('BloggerBlogBundle:Blog')->find($blog_id);
+        $blog = $em->getRepository('BloggerBlogBundle:Blog')->find($blogId);
 
         $form  = $this->createForm(new BlogType(), $blog);
         $form->submit($request);
@@ -100,11 +103,11 @@ class BlogController extends Controller
         ));
     }
 
-    public function deleteAction($blog_id)
+    public function deleteAction($blogId)
     {
         $em = $this->getDoctrine()
             ->getManager();
-        $blog = $em->getRepository('BloggerBlogBundle:Blog')->find($blog_id);
+        $blog = $em->getRepository('BloggerBlogBundle:Blog')->find($blogId);
 
         if (!$blog) {
             throw $this->createNotFoundException('Unable to find Blog post.');

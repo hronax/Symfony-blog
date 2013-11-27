@@ -278,7 +278,8 @@ class Blog
         $this->setCreated(new \DateTime());
         $this->setUpdated(new \DateTime());
         $this->setAuthor("Admin");
-        $this->setPosted(0);
+        $this->setPosted(false);
+        $this->setImage("default.png");
     }
 
     /**

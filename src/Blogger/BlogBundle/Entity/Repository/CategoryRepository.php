@@ -22,4 +22,12 @@ class CategoryRepository extends EntityRepository
         return $qb->getQuery()
             ->getResult();
     }
+
+    public function getDefaultCategory() {
+        $qb = $this->createQueryBuilder('c')
+            ->select('c')
+            ->where('c.id = 1');
+        return $qb->getQuery()
+            ->getResult();
+    }
 }

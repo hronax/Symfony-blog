@@ -12,9 +12,9 @@ use Blogger\BlogBundle\Form\CommentType;
  */
 class CommentController extends Controller
 {
-    public function newAction($blog_id)
+    public function newAction($blogId)
     {
-        $blog = $this->getBlog($blog_id);
+        $blog = $this->getBlog($blogId);
 
         $comment = new Comment();
         $comment->setBlog($blog);
@@ -26,9 +26,9 @@ class CommentController extends Controller
         ));
     }
 
-    public function createAction($blog_id)
+    public function createAction($blogId)
     {
-        $blog = $this->getBlog($blog_id);
+        $blog = $this->getBlog($blogId);
 
         $comment  = new Comment();
         $comment->setBlog($blog);
@@ -55,11 +55,11 @@ class CommentController extends Controller
         ));
     }
 
-    protected function getBlog($blog_id)
+    protected function getBlog($blogId)
     {
         $em = $this->getDoctrine();
 
-        $blog = $em->getRepository('BloggerBlogBundle:Blog')->find($blog_id);
+        $blog = $em->getRepository('BloggerBlogBundle:Blog')->find($blogId);
 
         if (!$blog) {
             throw $this->createNotFoundException('Unable to find Blog post.');
