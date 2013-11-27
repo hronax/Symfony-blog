@@ -4,7 +4,6 @@ namespace Blogger\AdminBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Blogger\BlogBundle\Entity\Category;
-use Blogger\BlogBundle\Entity\Blog;
 use Blogger\AdminBundle\Form\CategoryType;
 use Symfony\Component\HttpFoundation\Request;
 
@@ -52,7 +51,7 @@ class CategoryController extends Controller
         ));
     }
 
-    public function editBlogAction($catId) {
+    public function editCategoryAction($catId) {
         return $this->render('BloggerAdminBundle:Category:edit.html.twig', array(
             'catId' => $catId
         ));

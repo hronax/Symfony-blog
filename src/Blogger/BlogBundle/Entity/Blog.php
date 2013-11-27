@@ -193,29 +193,6 @@ class Blog
     }
 
     /**
-     * Set tags
-     *
-     * @param string $tags
-     * @return Blog
-     */
-    public function setTags($tags)
-    {
-        $this->tags = $tags;
-    
-        return $this;
-    }
-
-    /**
-     * Get tags
-     *
-     * @return string 
-     */
-    public function getTags()
-    {
-        return $this->tags;
-    }
-
-    /**
      * Set created
      *
      * @param \DateTime $created
@@ -346,9 +323,9 @@ class Blog
      *
      * @param \Blogger\BlogBundle\Entity\Tag $tags
      */
-    public function removeTag(\Blogger\BlogBundle\Entity\Tag $tags)
+    public function removeTag(\Blogger\BlogBundle\Entity\Tag $tag)
     {
-        $this->tags->removeElement($tags);
+        $this->tags->removeElement($tag);
     }
 
     /**

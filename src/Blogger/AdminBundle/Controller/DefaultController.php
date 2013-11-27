@@ -32,6 +32,19 @@ class DefaultController extends Controller
         ));
     }
 
+    public function tagsAction()
+    {
+        $em = $this->getDoctrine()
+            ->getManager();
+
+        $tags = $em->getRepository('BloggerBlogBundle:Tag')
+            ->getTagList();
+
+        return $this->render('BloggerAdminBundle:Default:tags.html.twig', array(
+            'tags' => $tags
+        ));
+    }
+
     public function sidebarAction()
     {
         return $this->render('BloggerAdminBundle:Default:sidebar.html.twig');

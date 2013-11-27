@@ -41,7 +41,7 @@ BloggerAdminBundle_blog_new:
 ############## categories
 BloggerAdminBundle_category_edit:
     pattern:  /edit/category/{catId}
-    defaults: { _controller: BloggerAdminBundle:Category:editBlog }
+    defaults: { _controller: BloggerAdminBundle:Category:editCategory }
     requirements:
         _method:  GET|POST
         catId: \d+
@@ -78,3 +78,44 @@ BloggerAdminBundle_default_categories:
     requirements:
             _method:  GET
 ############## end of categories
+
+############## tags
+BloggerAdminBundle_tag_edit:
+    pattern:  /edit/tag/{tagId}
+    defaults: { _controller: BloggerAdminBundle:Tag:editTag }
+    requirements:
+        _method:  GET|POST
+        tagId: \d+
+
+BloggerAdminBundle_tag_delete:
+    pattern:  /delete/tag/{tagId}
+    defaults: { _controller: BloggerAdminBundle:Tag:delete }
+    requirements:
+        _method:  GET
+        tagId: \d+
+
+BloggerAdminBundle_tag_create:
+    pattern:  /create-tag
+    defaults: { _controller: BloggerAdminBundle:Tag:create }
+    requirements:
+        _method:  GET|POST
+
+BloggerAdminBundle_tag_submitEdition:
+    pattern:  /edit-tag/{tagId}
+    defaults: { _controller: BloggerAdminBundle:Tag:submitEdition }
+    requirements:
+        _method:  GET|POST
+        tagId: \d+
+
+BloggerAdminBundle_tag_new:
+    pattern:  /new-tag
+    defaults: { _controller: BloggerAdminBundle:Tag:newTag }
+    requirements:
+        _method:  GET
+
+BloggerAdminBundle_default_tags:
+    pattern:  /tags
+    defaults: { _controller: BloggerAdminBundle:Default:tags }
+    requirements:
+            _method:  GET
+############## end of tags

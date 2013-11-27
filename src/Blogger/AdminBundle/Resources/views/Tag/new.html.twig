@@ -1,0 +1,6 @@
+{% extends 'BloggerAdminBundle::layout.html.twig' %}
+
+{% block body %}
+    <h2>Add new Tag:</h2>
+    {{ render(controller('BloggerAdminBundle:Tag:new')) }}
+{% endblock %}

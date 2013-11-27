@@ -1,5 +1,17 @@
 {# src/Blogger/BlogBundle/Resources/views/Page/sidebar.html.twig #}
 
+<section class="section">
+    <header>
+        <h3>Categories</h3>
+    </header>
+    <p class="categories">
+        <ul>
+        {% for cat in categories %}
+        <li>{{ cat.name }}</li>
+        {% endfor %}
+        </ul>
+    </p>
+</section>
 {#<section class="section">#}
     {#<header>#}
         {#<h3>Tag Cloud</h3>#}
@@ -8,8 +20,8 @@
         {#{% for tag, weight in tags %}#}
         {#<span class="weight-{{ weight }}">{{ tag }}</span>#}
         {#{% else %}#}
-    {#<p>There are no tags</p>#}
-    {#{% endfor %}#}
+        {#<p>There are no tags</p>#}
+        {#{% endfor %}#}
     {#</p>#}
 {#</section>#}
 <section class="section">

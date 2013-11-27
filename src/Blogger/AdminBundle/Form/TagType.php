@@ -8,7 +8,7 @@ use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
 class TagType extends AbstractType
 {
-        /**
+     /**
      * @param FormBuilderInterface $builder
      * @param array $options
      */
@@ -16,9 +16,13 @@ class TagType extends AbstractType
     {
         $builder
             ->add('name')
-            ->add('slug')
-            ->add('weight')
-            ->add('blogs')
+            ->add(
+                'slug',
+                null,
+                array (
+                    'required' => false
+                )
+            )
         ;
     }
     
