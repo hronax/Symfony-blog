@@ -1,0 +1,17 @@
+{% extends 'BloggerAdminBundle::layout.html.twig' %}
+
+{% block body %}
+    <h2>Edit Categories:</h2>
+    <h2 id="add_blog"><a href="{{ path('BloggerAdminBundle_category_new') }}">+ Add new Category</a></h2>
+    {% for cat in categories %}
+        <article class="blog">
+            <header>
+                <h3><a href="{{ path('BloggerAdminBundle_category_edit', { 'cat_id': cat.id }) }}">{{ cat.name }}</a></h3>
+            </header>
+            <div class="date">{{ cat.blogCount }} blogs</div>
+            <a class="delete_link" href="{{ path('BloggerAdminBundle_category_delete', { 'blog_id': blog.id }) }}">Delete Blog</a>
+        </article>
+    {% else %}
+        <p>There are no categories for symfony-blog</p>
+    {% endfor %}
+{% endblock %}

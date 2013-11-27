@@ -8,7 +8,7 @@ use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
 class BlogType extends AbstractType
 {
-        /**
+     /**
      * @param FormBuilderInterface $builder
      * @param array $options
      */
@@ -17,8 +17,28 @@ class BlogType extends AbstractType
         $builder
             ->add('title')
             ->add('blog')
-            ->add('image')
-            ->add('tags')
+            ->add(
+                'image',
+                null,
+                array(
+                    'required' => false,
+                )
+            )
+            ->add(
+                'tagString',
+                null,
+                array(
+                    'required' => false,
+                    'label' => 'Tags',
+                )
+            )
+            ->add(
+                'posted',
+                null,
+                array(
+                    'required' => false,
+                )
+             )
         ;
     }
     

@@ -19,6 +19,19 @@ class DefaultController extends Controller
         ));
     }
 
+    public function categoriesAction()
+    {
+        $em = $this->getDoctrine()
+            ->getManager();
+
+        $categories = $em->getRepository('BloggerBlogBundle:Category')
+            ->getCategoriesList();
+
+        return $this->render('BloggerAdminBundle:Default:categories.html.twig', array(
+            'categories' => $categories
+        ));
+    }
+
     public function sidebarAction()
     {
         return $this->render('BloggerAdminBundle:Default:sidebar.html.twig');

@@ -4,7 +4,7 @@
     <h2>Edit Blogs:</h2>
     <h2 id="add_blog"><a href="{{ path('BloggerAdminBundle_blog_new') }}">+ Add new Blog</a></h2>
     {% for blog in blogs %}
-        <article class="blog">
+        <article class="blog posted{% if blog.posted %}{{ 1 }}{% else %}{{ 0 }}{% endif %}">
             <header>
                 <h3><a href="{{ path('BloggerAdminBundle_blog_edit', { 'blog_id': blog.id }) }}">{{ blog.title }}</a></h3>
             </header>

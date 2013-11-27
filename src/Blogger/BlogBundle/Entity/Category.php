@@ -1,14 +1,17 @@
 <?php
 namespace Blogger\BlogBundle\Entity;
 
+use Blogger\BlogBundle\HelpTools\HelpTools;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\ArrayCollection;
+use Symfony\Component\Console\Helper\Helper;
 use Symfony\Component\Validator\Mapping\ClassMetadata;
 use Symfony\Component\Validator\Constraints\NotBlank;
 
 /**
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="Blogger\BlogBundle\Entity\Repository\CategoryRepository")
  * @ORM\Table(name="category")
+ * @ORM\HasLifecycleCallbacks()
  */
 class Category
 {
@@ -24,10 +27,23 @@ class Category
      */
     protected $blogs;
 
+    protected $blogCount;
+
     /**
      * @ORM\Column(type="string")
      */
-    protected $category;
+    protected $name;
+
+    /**
+     * @ORM\Column(type="string")
+     */
+    protected $slug;
+
+    /**
+     * @ORM\Column(type="boolean")
+     */
+    protected $default;
+
     /**
      * Constructor
      */
@@ -47,26 +63,86 @@ class Category
     }
 
     /**
-     * Set category
+     * Set name
      *
-     * @param string $category
+     * @param string $name
      * @return Category
      */
-    public function setCategory($category)
+    public function setName($name)
     {
-        $this->category = $category;
+        $this->name = $name;
+
+        $this->setSlug($this->name);
+
+        return $this;
+    }
+
+    /**
+     * Get name
+     *
+     * @return string 
+     */
+    public function getName()
+    {
+        return $this->name;
+    }
+
+    /**
+     * Set slug
+     *
+     * @param string $slug
+     * @return Category
+     */
+    public function setSlug($slug)
+    {
+        $this->slug = HelpTools::slugify($slug);
     
         return $this;
     }
 
     /**
-     * Get category
+     * Get slug
      *
      * @return string 
      */
-    public function getCategory()
+    public function getSlug()
     {
-        return $this->category;
+        return $this->slug;
+    }
+
+    /**
+     * Set default
+     *
+     * @param boolean $default
+     * @return Category
+     */
+    public function setDefault($default)
+    {
+        $this->default = $default;
+    
+        return $this;
+    }
+
+    /**
+     * Get default
+     *
+     * @return boolean 
+     */
+    public function getDefault()
+    {
+        return $this->default;
+    }
+
+    public function setBlogCount($blogCount)
+    {
+        $this->blogCount = $blogCount;
+
+        return $this;
+    }
+
+    public function getBlogCount()
+    {
+        return $this->blogCount;
     }
 
     /**

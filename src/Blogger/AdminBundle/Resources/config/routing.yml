@@ -2,28 +2,79 @@ BloggerAdminBundle_homepage:
     pattern:  /
     defaults: { _controller: BloggerAdminBundle:Default:index }
 
+############### blogs
 BloggerAdminBundle_blog_edit:
-    pattern:  /edit/{blog_id}
+    pattern:  /edit/blog/{blog_id}
     defaults: { _controller: BloggerAdminBundle:Blog:editBlog }
     requirements:
         _method:  GET|POST
         blog_id: \d+
 
 BloggerAdminBundle_blog_delete:
-    pattern:  /delete/{blog_id}
+    pattern:  /delete/blog/{blog_id}
     defaults: { _controller: BloggerAdminBundle:Blog:delete }
     requirements:
         _method:  GET
         blog_id: \d+
 
-BloggerAdminBundle_blog_submit:
-    pattern:  /sumbit-blog
-    defaults: { _controller: BloggerAdminBundle:Blog:submit }
+BloggerAdminBundle_blog_create:
+    pattern:  /create-blog
+    defaults: { _controller: BloggerAdminBundle:Blog:create }
     requirements:
         _method:  GET|POST
+
+BloggerAdminBundle_blog_submitEdition:
+    pattern:  /edit-blog/{blog_id}
+    defaults: { _controller: BloggerAdminBundle:Blog:submitEdition }
+    requirements:
+        _method:  GET|POST
+        blog_id: \d+
 
 BloggerAdminBundle_blog_new:
     pattern:  /new-blog
     defaults: { _controller: BloggerAdminBundle:Blog:newBlog }
     requirements:
         _method:  GET
+############# end of blogs
+
+
+############## categories
+BloggerAdminBundle_category_edit:
+    pattern:  /edit/category/{cat_id}
+    defaults: { _controller: BloggerAdminBundle:Category:editBlog }
+    requirements:
+        _method:  GET|POST
+        cat_id: \d+
+
+BloggerAdminBundle_category_delete:
+    pattern:  /delete/category/{cat_id}
+    defaults: { _controller: BloggerAdminBundle:Category:delete }
+    requirements:
+        _method:  GET
+        cat_id: \d+
+
+BloggerAdminBundle_category_create:
+    pattern:  /create-category
+    defaults: { _controller: BloggerAdminBundle:Category:create }
+    requirements:
+        _method:  GET|POST
+
+BloggerAdminBundle_category_submitEdition:
+    pattern:  /edit-category/{cat_id}
+    defaults: { _controller: BloggerAdminBundle:Category:submitEdition }
+    requirements:
+        _method:  GET|POST
+        cat_id: \d+
+
+BloggerAdminBundle_category_new:
+    pattern:  /new-category
+    defaults: { _controller: BloggerAdminBundle:Category:newCategory }
+    requirements:
+        _method:  GET
+
+BloggerAdminBundle_default_categories:
+    pattern:  /categories
+    defaults: { _controller: BloggerAdminBundle:Default:categories }
+    requirements:
+            _method:  GET
+############## end of categories

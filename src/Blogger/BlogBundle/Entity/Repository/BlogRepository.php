@@ -12,7 +12,7 @@ use Doctrine\ORM\EntityRepository;
  */
 class BlogRepository extends EntityRepository
 {
-    public function getLatestBlogs($limit = null)
+    public function getLatestBlogs($posted = true, $limit = null)
     {
         $qb = $this->createQueryBuilder('b')
             ->select('b, c')
@@ -21,6 +21,9 @@ class BlogRepository extends EntityRepository
 
         if (false === is_null($limit))
             $qb->setMaxResults($limit);
+        if ($posted === false)
+            $qb->where('b.posted = :posted')
+                ->setParameter('posted', true);
 
         return $qb->getQuery()
             ->getResult();

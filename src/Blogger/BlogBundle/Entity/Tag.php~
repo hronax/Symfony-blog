@@ -1,6 +1,7 @@
 <?php
 namespace Blogger\BlogBundle\Entity;
 
+use Blogger\BlogBundle\HelpTools;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Component\Validator\Mapping\ClassMetadata;
@@ -27,7 +28,17 @@ class Tag
     /**
      * @ORM\Column(type="string")
      */
-    protected $tag;
+    protected $name;
+
+    /**
+     * @ORM\Column(type="string")
+     */
+    protected $slug;
+
+    /**
+     * @ORM\Column(type="integer")
+     */
+    protected $weight;
     /**
      * Constructor
      */
@@ -47,26 +58,74 @@ class Tag
     }
 
     /**
-     * Set tag
+     * Set name
      *
-     * @param string $tag
+     * @param string $name
      * @return Tag
      */
-    public function setTag($tag)
+    public function setName($name)
     {
-        $this->tag = $tag;
+        $this->name = $name;
+
+        $this->setSlug($this->name);
     
         return $this;
     }
 
     /**
-     * Get tag
+     * Get name
      *
      * @return string 
      */
-    public function getTag()
+    public function getName()
     {
-        return $this->tag;
+        return $this->name;
+    }
+
+    /**
+     * Set slug
+     *
+     * @param string $slug
+     * @return Tag
+     */
+    public function setSlug($slug)
+    {
+        $this->slug = HelpTools::slugify($slug);
+    
+        return $this;
+    }
+
+    /**
+     * Get slug
+     *
+     * @return string 
+     */
+    public function getSlug()
+    {
+        return $this->slug;
+    }
+
+    /**
+     * Set weight
+     *
+     * @param \int $weight
+     * @return Tag
+     */
+    public function setWeight($weight)
+    {
+        $this->weight = $weight;
+    
+        return $this;
+    }
+
+    /**
+     * Get weight
+     *
+     * @return \int 
+     */
+    public function getWeight()
+    {
+        return $this->weight;
     }
 
     /**

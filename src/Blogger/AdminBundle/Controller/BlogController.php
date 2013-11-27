@@ -20,11 +20,12 @@ class BlogController extends Controller
 
         return $this->render('BloggerAdminBundle:Blog:form.html.twig', array(
             'blog' => $blog,
-            'form' => $form->createView()
+            'form' => $form->createView(),
+            'create' => true
         ));
     }
 
-    public function submitAction(Request $request)
+    public function createAction(Request $request)
     {
         $blog  = new Blog();
 
@@ -32,6 +33,7 @@ class BlogController extends Controller
         $form->submit($request);
 
         if ($form->isValid()) {
+
             $em = $this->getDoctrine()
                 ->getManager();
             $em->persist($blog);
@@ -42,7 +44,8 @@ class BlogController extends Controller
 
         return $this->render('BloggerAdminBundle:Blog:form.html.twig', array(
             'blog' => $blog,
-            'form' => $form->createView()
+            'form' => $form->createView(),
+            'create' => true
         ));
     }
 
@@ -58,11 +61,42 @@ class BlogController extends Controller
             ->getManager();
         $blog = $em->getRepository('BloggerBlogBundle:Blog')->find($blog_id);
 
+        if (!$blog) {
+            throw $this->createNotFoundException('Unable to find Blog post.');
+        }
+
         $form  = $this->createForm(new BlogType(), $blog);
 
         return $this->render('BloggerAdminBundle:Blog:form.html.twig', array(
             'blog' => $blog,
-            'form' => $form->createView()
+            'form' => $form->createView(),
+            'create' => false
+        ));
+    }
+
+    public function submitEditionAction(Request $request, $blog_id)
+    {
+        $em = $this->getDoctrine()
+            ->getManager();
+        $blog = $em->getRepository('BloggerBlogBundle:Blog')->find($blog_id);
+
+        $form  = $this->createForm(new BlogType(), $blog);
+        $form->submit($request);
+
+        if ($form->isValid()) {
+
+            $em = $this->getDoctrine()
+                ->getManager();
+            $em->persist($blog);
+            $em->flush();
+
+            return $this->redirect($this->generateUrl('BloggerAdminBundle_homepage'));
+        }
+
+        return $this->render('BloggerAdminBundle:Blog:form.html.twig', array(
+            'blog' => $blog,
+            'form' => $form->createView(),
+            'create' => false
         ));
     }
 
