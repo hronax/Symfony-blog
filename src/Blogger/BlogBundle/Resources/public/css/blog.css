@@ -132,3 +132,8 @@ form.blogger ul li {
 .comments .previous-comments {
     margin-bottom: 20px;
 }
+
+h1 {
+    border-bottom: 5px solid #999999;
+    padding-bottom: 10px;
+}

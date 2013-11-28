@@ -28,4 +28,19 @@ class BlogRepository extends EntityRepository
         return $qb->getQuery()
             ->getResult();
     }
+
+    public function getBlogsInCategory($catId) {
+        $qb = $this->createQueryBuilder('b')
+            ->select('b, c')
+            ->leftJoin('b.comments', 'c')
+            ->where('b.category = :slug')
+            ->setParameter('slug', $catId)
+            ->addOrderBy('b.created', 'DESC');
+
+        $qb->andWhere('b.posted = :posted')
+            ->setParameter('posted', true);
+
+        return $qb->getQuery()
+            ->getResult();
+    }
 }

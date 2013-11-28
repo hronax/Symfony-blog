@@ -67,11 +67,8 @@ class PageController extends Controller
         $em = $this->getDoctrine()
             ->getManager();
 
-//        $tags = $em->getRepository('BloggerBlogBundle:Blog')
-//            ->getTags();
-//
-//        $tagWeights = $em->getRepository('BloggerBlogBundle:Blog')
-//            ->getTagWeights($tags);
+        $tagWeights = $em->getRepository('BloggerBlogBundle:Tag')
+            ->getTagWeights();
 
         $commentLimit   = $this->container
             ->getParameter('blogger_blog.comments.latest_comment_limit');
@@ -84,7 +81,24 @@ class PageController extends Controller
         return $this->render('BloggerBlogBundle:Page:sidebar.html.twig', array(
             'latestComments'    => $latestComments,
             'categories'        => $categories,
-            //'tags'              => $tagWeights
+            'tags'              => $tagWeights
+        ));
+    }
+
+    public function categoryAction($slug)
+    {
+        $em = $this->getDoctrine()
+            ->getManager();
+
+        $category = $em->getRepository('BloggerBlogBundle:Category')->findBySlug($slug);
+        $blogs = $em->getRepository('BloggerBlogBundle:Blog')
+            ->getBlogsInCategory($category->getId());
+
+
+        return $this->render('BloggerBlogBundle:Page:category.html.twig', array(
+            'cat' => $category,
+            'slug' => $slug,
+            'blogs' => $blogs
         ));
     }
 }

@@ -7,23 +7,23 @@
     <p class="categories">
         <ul>
         {% for cat in categories %}
-        <li>{{ cat.name }}</li>
+        <li><a href="{{ path('BloggerBlogBundle_category', { 'slug': cat.slug }) }}">{{ cat.name }}</a> ({{ cat.postedBlogCount }})</li>
         {% endfor %}
         </ul>
     </p>
 </section>
-{#<section class="section">#}
-    {#<header>#}
-        {#<h3>Tag Cloud</h3>#}
-    {#</header>#}
-    {#<p class="tags">#}
-        {#{% for tag, weight in tags %}#}
-        {#<span class="weight-{{ weight }}">{{ tag }}</span>#}
-        {#{% else %}#}
-        {#<p>There are no tags</p>#}
-        {#{% endfor %}#}
-    {#</p>#}
-{#</section>#}
+<section class="section">
+    <header>
+        <h3>Tag Cloud</h3>
+    </header>
+    <p class="tags">
+        {% for tag, weight in tags %}
+        <span class="weight-{{ weight }}">{{ tag }}</span>
+        {% else %}
+        <p>There are no tags</p>
+        {% endfor %}
+    </p>
+</section>
 <section class="section">
     <header>
         <h3>Latest Comments</h3>

@@ -3,10 +3,7 @@ namespace Blogger\BlogBundle\Entity;
 
 use Blogger\BlogBundle\HelpTools\HelpTools;
 use Doctrine\ORM\Mapping as ORM;
-use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Component\Console\Helper\Helper;
-use Symfony\Component\Validator\Mapping\ClassMetadata;
-use Symfony\Component\Validator\Constraints\NotBlank;
 
 /**
  * @ORM\Entity(repositoryClass="Blogger\BlogBundle\Entity\Repository\CategoryRepository")
@@ -132,7 +129,16 @@ class Category
 
     public function getBlogCount()
     {
-        return $this->blogs->count();
+            return $this->blogs->count();
+    }
+
+    public function getPostedBlogCount() {
+        $postedBlogCount = 0;
+        foreach($this->blogs as $blog) {
+            if($blog->getPosted() == 1)
+                $postedBlogCount++;
+        }
+        return $postedBlogCount;
     }
 
     /**

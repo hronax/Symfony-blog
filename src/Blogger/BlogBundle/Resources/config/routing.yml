@@ -23,6 +23,12 @@ BloggerBlogBundle_blog_show:
         _method:  GET
         id: \d+
 
+BloggerBlogBundle_category:
+    pattern:  /category/{slug}
+    defaults: { _controller: BloggerBlogBundle:Page:category }
+    requirements:
+        _method:  GET
+
 BloggerBlogBundle_comment_create:
     pattern:  /comment/{blogId}
     defaults: { _controller: BloggerBlogBundle:Comment:create }

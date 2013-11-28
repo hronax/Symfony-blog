@@ -40,36 +40,16 @@ class TagRepository extends EntityRepository
             return true;
     }
 
-    public function getTags()
+    public function getTagWeights()
     {
-        $blogTags = $this->createQueryBuilder('b')
-            ->select('b.tags')
-            ->getQuery()
-            ->getResult();
-
-        $tags = array();
-        foreach ($blogTags as $blogTag)
-        {
-            $tags = array_merge(explode(",", $blogTag['tags']), $tags);
-        }
-
-        foreach ($tags as &$tag)
-        {
-            $tag = trim($tag);
-        }
-
-        return $tags;
-    }
-
-    public function getTagWeights($tags)
-    {
+        $tags = $this->getTagList();
         $tagWeights = array();
         if (empty($tags))
             return $tagWeights;
 
         foreach ($tags as $tag)
         {
-            $tagWeights[$tag] = (isset($tagWeights[$tag])) ? $tagWeights[$tag] + 1 : 1;
+            $tagWeights[$tag->getName()] = $tag->getBlogCount();
         }
         // Shuffle the tags
         uksort($tagWeights, function() {
