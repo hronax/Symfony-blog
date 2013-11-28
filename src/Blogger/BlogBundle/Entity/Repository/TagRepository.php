@@ -22,4 +22,21 @@ class TagRepository extends EntityRepository
         return $qb->getQuery()
             ->getResult();
     }
+
+    public function isTagUnique($name, $slug) {
+        $qb = $this->createQueryBuilder('t')
+            ->select('t')
+            ->where('t.slug = :slug')
+            ->orWhere('t.name = :name')
+            ->setParameters(
+                array(
+                    'slug' => $slug,
+                    'name' => $name
+                )
+            );
+        if($qb->getQuery()->getResult())
+            return false;
+        else
+            return true;
+    }
 }

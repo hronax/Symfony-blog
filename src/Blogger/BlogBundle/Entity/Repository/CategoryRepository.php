@@ -40,4 +40,15 @@ class CategoryRepository extends EntityRepository
         return $qb->getQuery()
             ->getResult();
     }
+
+    public function isCategorySlugUnique($slug) {
+        $qb = $this->createQueryBuilder('c')
+            ->select('c')
+            ->where('c.slug = :slug')
+            ->setParameter('slug', $slug);
+        if($qb->getQuery()->getResult())
+            return false;
+        else
+            return true;
+    }
 }

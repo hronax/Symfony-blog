@@ -45,6 +45,7 @@ class Tag
     public function __construct()
     {
         $this->blogs = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->weight = 0;
     }
     
     /**
@@ -159,5 +160,10 @@ class Tag
     public function getBlogs()
     {
         return $this->blogs;
+    }
+
+    public function getBlogCount()
+    {
+        return $this->blogs->count();
     }
 }

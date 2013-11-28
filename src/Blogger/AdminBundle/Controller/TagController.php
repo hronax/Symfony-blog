@@ -38,10 +38,21 @@ class TagController extends Controller
 
             $em = $this->getDoctrine()
                 ->getManager();
-            $em->persist($tag);
-            $em->flush();
 
-            return $this->redirect($this->generateUrl('BloggerAdminBundle_default_tag'));
+            if($tag->getSlug() == '')
+                $tag->setSlug($tag->getName());
+
+            $isUnique = $em->getRepository('BloggerBlogBundle:Tag')->isTagUnique($tag->getName(), $tag->getSlug());
+
+            if($isUnique) {
+                $em->persist($tag);
+                $em->flush();
+
+                return $this->redirect($this->generateUrl('BloggerAdminBundle_default_tags'));
+            }
+            else {
+                return $this->redirect($this->generateUrl('BloggerAdminBundle_default_tags'));
+            }
         }
 
         return $this->render('BloggerAdminBundle:Tag:form.html.twig', array(
@@ -53,7 +64,7 @@ class TagController extends Controller
 
     public function editTagAction($tagId) {
         return $this->render('BloggerAdminBundle:Tag:edit.html.twig', array(
-            'blogId' => $tagId
+            'tagId' => $tagId
         ));
     }
 
@@ -70,7 +81,7 @@ class TagController extends Controller
         $form  = $this->createForm(new TagType(), $tag);
 
         return $this->render('BloggerAdminBundle:Tag:form.html.twig', array(
-            'blog' => $tag,
+            'tag' => $tag,
             'form' => $form->createView(),
             'create' => false
         ));
@@ -89,10 +100,20 @@ class TagController extends Controller
 
             $em = $this->getDoctrine()
                 ->getManager();
-            $em->persist($tag);
-            $em->flush();
+            if($tag->getSlug() == '')
+                $tag->setSlug($tag->getName());
 
-            return $this->redirect($this->generateUrl('BloggerAdminBundle_default_tag'));
+            $isUnique = $em->getRepository('BloggerBlogBundle:Tag')->isTagUnique($tag->getName(), $tag->getSlug());
+
+            if($isUnique) {
+                $em->persist($tag);
+                $em->flush();
+
+                return $this->redirect($this->generateUrl('BloggerAdminBundle_default_tags'));
+            }
+            else {
+                return $this->redirect($this->generateUrl('BloggerAdminBundle_default_tags'));
+            }
         }
 
         return $this->render('BloggerAdminBundle:Tag:form.html.twig', array(
@@ -106,7 +127,7 @@ class TagController extends Controller
     {
         $em = $this->getDoctrine()
             ->getManager();
-        $tag = $em->getRepository('BloggerBlogBundle:Blog')->find($tagId);
+        $tag = $em->getRepository('BloggerBlogBundle:Tag')->find($tagId);
 
         if (!$tag) {
             throw $this->createNotFoundException('Unable to find Tag post.');
@@ -119,6 +140,6 @@ class TagController extends Controller
         $em->remove($tag);
         $em->flush();
 
-        return $this->redirect($this->generateUrl('BloggerAdminBundle_default_tag'));
+        return $this->redirect($this->generateUrl('BloggerAdminBundle_default_tags'));
     }
 }

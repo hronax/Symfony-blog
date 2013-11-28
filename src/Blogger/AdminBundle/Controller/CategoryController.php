@@ -38,10 +38,18 @@ class CategoryController extends Controller
                 ->getManager();
             if($category->getSlug() == '')
                 $category->setSlug($category->getName());
-            $em->persist($category);
-            $em->flush();
 
-            return $this->redirect($this->generateUrl('BloggerAdminBundle_default_categories'));
+            $isUnique = $em->getRepository('BloggerBlogBundle:Category')->isCategorySlugUnique($category->getSlug());
+
+            if($isUnique) {
+                $em->persist($category);
+                $em->flush();
+
+                return $this->redirect($this->generateUrl('BloggerAdminBundle_default_categories'));
+            }
+            else {
+                return $this->redirect($this->generateUrl('BloggerAdminBundle_default_categories'));
+            }
         }
 
         return $this->render('BloggerAdminBundle:Category:form.html.twig', array(
@@ -89,10 +97,20 @@ class CategoryController extends Controller
 
             $em = $this->getDoctrine()
                 ->getManager();
-            $em->persist($category);
-            $em->flush();
+            if($category->getSlug() == '')
+                $category->setSlug($category->getName());
 
-            return $this->redirect($this->generateUrl('BloggerAdminBundle_default_category'));
+            $isUnique = $em->getRepository('BloggerBlogBundle:Category')->isCategorySlugUnique($category->getSlug());
+
+            if($isUnique) {
+                $em->persist($category);
+                $em->flush();
+
+                return $this->redirect($this->generateUrl('BloggerAdminBundle_default_categories'));
+            }
+            else {
+                return $this->redirect($this->generateUrl('BloggerAdminBundle_default_categories'));
+            }
         }
 
         return $this->render('BloggerAdminBundle:Category:form.html.twig', array(
