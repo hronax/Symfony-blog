@@ -4,6 +4,7 @@ namespace Blogger\AdminBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Blogger\BlogBundle\Entity\Blog;
+use Blogger\BlogBundle\Entity\Tag;
 use Blogger\AdminBundle\Form\BlogType;
 use Symfony\Component\HttpFoundation\Request;
 
@@ -39,6 +40,9 @@ class BlogController extends Controller
 
             $em = $this->getDoctrine()
                 ->getManager();
+
+            $blog = $this->setBlogTags($blog);
+
             $em->persist($blog);
             $em->flush();
 
@@ -68,6 +72,7 @@ class BlogController extends Controller
             throw $this->createNotFoundException('Unable to find Blog post.');
         }
 
+        $blog->setTagString($blog->getTagsAsString());
         $form  = $this->createForm(new BlogType(), $blog);
 
         return $this->render('BloggerAdminBundle:Blog:form.html.twig', array(
@@ -83,6 +88,7 @@ class BlogController extends Controller
             ->getManager();
         $blog = $em->getRepository('BloggerBlogBundle:Blog')->find($blogId);
 
+        $blog->setTagString($blog->getTagsAsString());
         $form  = $this->createForm(new BlogType(), $blog);
         $form->submit($request);
 
@@ -90,6 +96,8 @@ class BlogController extends Controller
 
             $em = $this->getDoctrine()
                 ->getManager();
+            $blog = $this->setBlogTags($blog);
+
             $em->persist($blog);
             $em->flush();
 
@@ -113,14 +121,34 @@ class BlogController extends Controller
             throw $this->createNotFoundException('Unable to find Blog post.');
         }
 
-        //use onDelete attribute (Database-level) in @JoinColumn
-        foreach ($blog->getComments() AS $comment) {
-            $em->remove($comment);
-        }
-
         $em->remove($blog);
         $em->flush();
 
         return $this->redirect($this->generateUrl('BloggerAdminBundle_homepage'));
+    }
+
+    public function setBlogTags(\Blogger\BlogBundle\Entity\Blog $blog) {
+        $em = $this->getDoctrine()
+            ->getManager();
+        $tagRepository = $em->getRepository('BloggerBlogBundle:Tag');
+
+        $blog->getTags()->clear();
+        $blogTags = array_map('trim', explode(",", $blog->getTagString()));
+
+        foreach(array_unique($blogTags) as $tag) {
+            if($tag) {
+                $entity = $tagRepository->findOneByName($tag);
+                if(!$entity) {
+                    $entity = new Tag();
+                    $entity->setName($tag);
+                    $entity->setSlug($tag);
+
+                    $em->persist($entity);
+                }
+
+                $blog->addTag($entity);
+            }
+        }
+        return $blog;
     }
 }

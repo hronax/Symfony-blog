@@ -67,8 +67,6 @@ class Tag
     public function setName($name)
     {
         $this->name = $name;
-
-        $this->setSlug($this->name);
     
         return $this;
     }
@@ -165,5 +163,10 @@ class Tag
     public function getBlogCount()
     {
         return $this->blogs->count();
+    }
+
+    public function __toString()
+    {
+        return $this->getName();
     }
 }

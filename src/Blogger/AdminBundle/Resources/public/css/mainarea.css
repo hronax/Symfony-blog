@@ -72,3 +72,12 @@ form.blogger ul li {
 .isDefault1 {
     background: #eee;
 }
+
+.blogger-notice {
+    text-align: center;
+    padding: 10px;
+    background: rgba(255, 53, 56, 0.35);
+    border: 1px solid;
+    color: #4F8A10;
+    margin-bottom: 10px;
+}

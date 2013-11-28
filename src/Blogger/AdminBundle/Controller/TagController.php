@@ -35,10 +35,8 @@ class TagController extends Controller
         $form->submit($request);
 
         if ($form->isValid()) {
-
             $em = $this->getDoctrine()
                 ->getManager();
-
             if($tag->getSlug() == '')
                 $tag->setSlug($tag->getName());
 
@@ -51,7 +49,12 @@ class TagController extends Controller
                 return $this->redirect($this->generateUrl('BloggerAdminBundle_default_tags'));
             }
             else {
-                return $this->redirect($this->generateUrl('BloggerAdminBundle_default_tags'));
+                $this->get('session')->getFlashBag()->add(
+                    'blogger-notice',
+                    'Already have such tag!'
+                );
+
+                return $this->redirect($this->generateUrl('BloggerAdminBundle_tag_new'));
             }
         }
 
@@ -112,7 +115,15 @@ class TagController extends Controller
                 return $this->redirect($this->generateUrl('BloggerAdminBundle_default_tags'));
             }
             else {
-                return $this->redirect($this->generateUrl('BloggerAdminBundle_default_tags'));
+                $this->get('session')->getFlashBag()->add(
+                    'blogger-notice',
+                    'Already have such tag, edition failed!'
+                );
+
+                return $this->redirect($this->generateUrl('BloggerAdminBundle_tag_edit', array (
+                    'tagId' => $tag->getId()
+                    )
+                ));
             }
         }
 

@@ -81,7 +81,6 @@ class Blog
 
     /**
      * @ORM\Column(type="boolean")
-
      */
     protected $posted;
 
@@ -384,5 +383,25 @@ class Blog
     public function getTagString()
     {
         return $this->tagString;
+    }
+
+    public function getTagsAsString()
+    {
+        $tags = $this->getTags();
+        $tagNameArray = array();
+        foreach($tags as $tag) {
+            $tagNameArray[] = $tag->getName();
+        }
+        return implode(", ", $tagNameArray);
+    }
+
+    /**
+     * Get blogs
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getTags()
+    {
+        return $this->tags;
     }
 }

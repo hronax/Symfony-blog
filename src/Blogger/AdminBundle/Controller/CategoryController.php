@@ -33,7 +33,6 @@ class CategoryController extends Controller
         $form->submit($request);
 
         if ($form->isValid()) {
-
             $em = $this->getDoctrine()
                 ->getManager();
             if($category->getSlug() == '')
@@ -48,7 +47,12 @@ class CategoryController extends Controller
                 return $this->redirect($this->generateUrl('BloggerAdminBundle_default_categories'));
             }
             else {
-                return $this->redirect($this->generateUrl('BloggerAdminBundle_default_categories'));
+                $this->get('session')->getFlashBag()->add(
+                    'blogger-notice',
+                    'Already have such category!'
+                );
+
+                return $this->redirect($this->generateUrl('BloggerAdminBundle_category_new'));
             }
         }
 
@@ -109,7 +113,13 @@ class CategoryController extends Controller
                 return $this->redirect($this->generateUrl('BloggerAdminBundle_default_categories'));
             }
             else {
-                return $this->redirect($this->generateUrl('BloggerAdminBundle_default_categories'));
+                $this->get('session')->getFlashBag()->add(
+                    'blogger-notice',
+                    'Already have such category, edit failed!'
+                );
+
+                return $this->redirect($this->generateUrl('BloggerAdminBundle_category_edit', array(
+                    'catId' => $category->getId())));
             }
         }
 
