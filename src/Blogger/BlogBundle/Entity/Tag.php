@@ -35,9 +35,6 @@ class Tag
      */
     protected $slug;
 
-    /**
-     * @ORM\Column(type="integer")
-     */
     protected $weight;
     /**
      * Constructor

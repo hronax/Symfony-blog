@@ -33,8 +33,9 @@ class CategoryRepository extends EntityRepository
 
     public function getCategoriesListWithBlogs() {
         $qb = $this->createQueryBuilder('c')
-            ->select('c, b')
+            ->select('c', 'b')
             ->innerJoin('c.blogs', 'b')
+            ->where('b.posted = 1')
             ->addOrderBy('c.name', 'ASC');
 
         return $qb->getQuery()
