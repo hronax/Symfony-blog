@@ -113,6 +113,7 @@ class BlogController extends Controller
             throw $this->createNotFoundException('Unable to find Blog post.');
         }
 
+        //use onDelete attribute (Database-level) in @JoinColumn
         foreach ($blog->getComments() AS $comment) {
             $em->remove($comment);
         }
