@@ -33,8 +33,24 @@ class BlogRepository extends EntityRepository
         $qb = $this->createQueryBuilder('b')
             ->select('b, c')
             ->leftJoin('b.comments', 'c')
-            ->where('b.category = :slug')
-            ->setParameter('slug', $catId)
+            ->where('b.category = :id')
+            ->setParameter('id', $catId)
+            ->addOrderBy('b.created', 'DESC');
+
+        $qb->andWhere('b.posted = :posted')
+            ->setParameter('posted', true);
+
+        return $qb->getQuery()
+            ->getResult();
+    }
+
+    public function getBlogsOnTag($tagId) {
+        $qb = $this->createQueryBuilder('b')
+            ->select('b', 'c', 't')
+            ->leftJoin('b.comments', 'c')
+            ->leftJoin('b.tags', 't')
+            ->where('b.tag = :id')
+            ->setParameter('id', $tagId)
             ->addOrderBy('b.created', 'DESC');
 
         $qb->andWhere('b.posted = :posted')

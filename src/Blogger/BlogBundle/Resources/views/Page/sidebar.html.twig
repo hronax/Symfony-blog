@@ -17,8 +17,8 @@
         <h3>Tag Cloud</h3>
     </header>
     <p class="tags">
-        {% for tag, weight in tags %}
-        <span class="weight-{{ weight }}">{{ tag }}</span>
+        {% for tag in tags %}
+        <a href="{{ path('BloggerBlogBundle_tag', { 'slug': tag.slug }) }}" style="font-weight:{{ tag.weight }}">{{ tag }}</a>
         {% else %}
         <p>There are no tags</p>
         {% endfor %}

@@ -79,4 +79,16 @@ class TagRepository extends EntityRepository
         else
             return $entity[0];
     }
+
+    public function findBySlug($slug) {
+        $qb = $this->createQueryBuilder('t')
+            ->select('t')
+            ->where('t.name = :slug')
+            ->setParameter('slug', $slug);
+        $entity = $qb->getQuery()->getResult();
+        if(!$entity)
+            return false;
+        else
+            return $entity[0];
+    }
 }
