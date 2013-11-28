@@ -43,29 +43,31 @@ class TagRepository extends EntityRepository
     public function getTagWeights()
     {
         $tags = $this->getTagList();
-        $tagWeights = array();
         if (empty($tags))
-            return $tagWeights;
+            return $tags;
 
-        foreach ($tags as $tag)
-        {
-            $tagWeights[$tag->getName()] = $tag->getBlogCount();
-        }
         // Shuffle the tags
-        uksort($tagWeights, function() {
-            return rand() > rand();
-        });
+        shuffle($tags);
+        $max = 0;
+        $min = 10000000;
 
-        $max = max($tagWeights);
-
-        // Max of 5 weights
-        $multiplier = ($max > 5) ? 5 / $max : 1;
-        foreach ($tagWeights as &$tag)
-        {
-            $tag = ceil($tag * $multiplier);
+        foreach($tags as $tag) {
+            $blogCount = $tag->getBlogCount();
+            if($blogCount < $min)
+                $min = $blogCount;
+            if($blogCount > $max)
+                $max = $blogCount;
         }
 
-        return $tagWeights;
+        foreach($tags as $tag) {
+            $blogCount = $tag->getBlogCount();
+            $maxFont = 24;
+            $minFont = 12;
+            $weight = ($blogCount-$min+1) / ($blogCount-$min+1) * ($maxFont - $minFont) + $minFont;
+            $tag->setWeight($weight);
+        }
+
+        return $tags;
     }
 
     public function findOneByName($name) {
