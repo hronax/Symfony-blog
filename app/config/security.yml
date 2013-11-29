@@ -5,21 +5,22 @@ security:
 
     role_hierarchy:
         ROLE_ADMIN:       ROLE_USER
-        ROLE_SUPER_ADMIN: [ ROLE_ADMIN, ROLE_ALLOWED_TO_SWITCH ]
+        ROLE_SUPER_ADMIN: [ ROLE_ADMIN, ROLE_USER ]
 
     providers:
         administrators:
-            entity: { class: BloggerBlogBundle:User, property: username }
+            entity: { class: BloggerBlogBundle:User }
 
     firewalls:
-        login_firewall:
-             pattern:    ^/login$
-             anonymous:  ~
         secured_area:
-             pattern:    ^/
-             form_login: ~
+            pattern:    ^/
+            anonymous:  ~
+            form_login:
+                login_path:  login
+                check_path:  login_check
 
     access_control:
         - { path: ^/backend/users, roles: ROLE_SUPER_ADMIN }
         - { path: ^/backend, roles: ROLE_ADMIN }
         - { path: ^/login, roles: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/, roles: IS_AUTHENTICATED_ANONYMOUSLY }
