@@ -3,5 +3,4 @@ app/cache
 app/logs
 bin
 app/config/parameters.yml
-.idea
 web/bundles
