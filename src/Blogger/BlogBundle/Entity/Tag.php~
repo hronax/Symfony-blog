@@ -8,7 +8,7 @@ use Symfony\Component\Validator\Mapping\ClassMetadata;
 use Symfony\Component\Validator\Constraints\NotBlank;
 
 /**
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="Blogger\BlogBundle\Entity\Repository\TagRepository")
  * @ORM\Table(name="tag")
  */
 class Tag
@@ -35,9 +35,6 @@ class Tag
      */
     protected $slug;
 
-    /**
-     * @ORM\Column(type="integer")
-     */
     protected $weight;
     /**
      * Constructor
@@ -45,6 +42,7 @@ class Tag
     public function __construct()
     {
         $this->blogs = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->weight = 0;
     }
     
     /**
@@ -66,8 +64,6 @@ class Tag
     public function setName($name)
     {
         $this->name = $name;
-
-        $this->setSlug($this->name);
     
         return $this;
     }
@@ -159,5 +155,24 @@ class Tag
     public function getBlogs()
     {
         return $this->blogs;
+    }
+
+    public function getBlogCount()
+    {
+        return $this->blogs->count();
+    }
+
+    public function getPostedBlogCount() {
+        $postedBlogCount = 0;
+        foreach($this->blogs as $blog) {
+            if($blog->getPosted() == 1)
+                $postedBlogCount++;
+        }
+        return $postedBlogCount;
+    }
+
+    public function __toString()
+    {
+        return $this->getName();
     }
 }

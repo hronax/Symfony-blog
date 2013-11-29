@@ -3,7 +3,7 @@
 {% block body %}
     <h2>Edit Tags:</h2>
     <h2 id="add_blog"><a href="{{ path('BloggerAdminBundle_tag_new') }}">+ Add new Tag</a></h2>
-    {% for tag in tags %}
+    {% for tag in pagination %}
         <article class="blog">
             <header>
                 <h3><a href="{{ path('BloggerAdminBundle_tag_edit', { 'tagId': tag.id }) }}">{{ tag.name }}</a> | {{ tag.slug }}</h3>
@@ -14,4 +14,7 @@
     {% else %}
         <p>There are no tags for symfony-blog</p>
     {% endfor %}
+    <div class="navigation">
+        {{ knp_pagination_render(pagination) }}
+    </div>
 {% endblock %}

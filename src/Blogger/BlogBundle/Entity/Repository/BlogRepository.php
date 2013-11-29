@@ -15,8 +15,9 @@ class BlogRepository extends EntityRepository
     public function getLatestBlogs($posted = true, $limit = null)
     {
         $qb = $this->createQueryBuilder('b')
-            ->select('b, c')
+            ->select('b', 'c', 't')
             ->leftJoin('b.comments', 'c')
+            ->leftJoin('b.tags', 't')
             ->addOrderBy('b.created', 'DESC');
 
         if (false === is_null($limit))
@@ -31,8 +32,9 @@ class BlogRepository extends EntityRepository
 
     public function getBlogsInCategory($catId) {
         $qb = $this->createQueryBuilder('b')
-            ->select('b, c')
+            ->select('b', 'c', 't')
             ->leftJoin('b.comments', 'c')
+            ->leftJoin('b.tags', 't')
             ->where('b.category = :id')
             ->setParameter('id', $catId)
             ->addOrderBy('b.created', 'DESC');
@@ -49,7 +51,7 @@ class BlogRepository extends EntityRepository
             ->select('b', 'c', 't')
             ->leftJoin('b.comments', 'c')
             ->leftJoin('b.tags', 't')
-            ->where('b.tag = :id')
+            ->where('t.id = :id')
             ->setParameter('id', $tagId)
             ->addOrderBy('b.created', 'DESC');
 

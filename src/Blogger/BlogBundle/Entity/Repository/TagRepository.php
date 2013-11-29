@@ -23,6 +23,17 @@ class TagRepository extends EntityRepository
             ->getResult();
     }
 
+    public function geTagListWithBlogs() {
+        $qb = $this->createQueryBuilder('t')
+            ->select('t', 'b')
+            ->innerJoin('t.blogs', 'b')
+            ->where('b.posted = 1')
+            ->addOrderBy('t.name', 'ASC');
+
+        return $qb->getQuery()
+            ->getResult();
+    }
+
     public function isTagUnique($name, $slug) {
         $qb = $this->createQueryBuilder('t')
             ->select('t')
@@ -42,7 +53,7 @@ class TagRepository extends EntityRepository
 
     public function getTagWeights()
     {
-        $tags = $this->getTagList();
+        $tags = $this->geTagListWithBlogs();
         if (empty($tags))
             return $tags;
 
@@ -63,7 +74,7 @@ class TagRepository extends EntityRepository
             $blogCount = $tag->getBlogCount();
             $maxFont = 24;
             $minFont = 12;
-            $weight = ($blogCount-$min+1) / ($blogCount-$min+1) * ($maxFont - $minFont) + $minFont;
+            $weight = ($blogCount-$min+1) / ($max-$min+1) * ($maxFont - $minFont) + $minFont;
             $tag->setWeight($weight);
         }
 
@@ -75,22 +86,14 @@ class TagRepository extends EntityRepository
             ->select('t')
             ->where('t.name = :name')
             ->setParameter('name', $name);
-        $entity = $qb->getQuery()->getResult();
-        if(!$entity)
-            return false;
-        else
-            return $entity[0];
+        return $qb->getQuery()->getOneOrNullResult();
     }
 
     public function findBySlug($slug) {
         $qb = $this->createQueryBuilder('t')
             ->select('t')
-            ->where('t.name = :slug')
+            ->where('t.slug = :slug')
             ->setParameter('slug', $slug);
-        $entity = $qb->getQuery()->getResult();
-        if(!$entity)
-            return false;
-        else
-            return $entity[0];
+        return $qb->getQuery()->getOneOrNullResult();
     }
 }

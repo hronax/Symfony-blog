@@ -162,6 +162,15 @@ class Tag
         return $this->blogs->count();
     }
 
+    public function getPostedBlogCount() {
+        $postedBlogCount = 0;
+        foreach($this->blogs as $blog) {
+            if($blog->getPosted() == 1)
+                $postedBlogCount++;
+        }
+        return $postedBlogCount;
+    }
+
     public function __toString()
     {
         return $this->getName();

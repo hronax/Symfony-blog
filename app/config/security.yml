@@ -1,29 +1,25 @@
+# app/config/security.yml
 security:
     encoders:
-        Symfony\Component\Security\Core\User\User: plaintext
+        Blogger\BlogBundle\Entity\User: plaintext
 
     role_hierarchy:
         ROLE_ADMIN:       ROLE_USER
-        ROLE_SUPER_ADMIN: [ROLE_USER, ROLE_ADMIN, ROLE_ALLOWED_TO_SWITCH]
+        ROLE_SUPER_ADMIN: [ ROLE_ADMIN, ROLE_ALLOWED_TO_SWITCH ]
 
     providers:
-        default_provider:
-            memory:
-                users:
-                    user:  { password: userpass, roles: [ 'ROLE_USER' ] }
-                    admin: { password: adminpass, roles: [ 'ROLE_ADMIN' ] }
+        administrators:
+            entity: { class: BloggerBlogBundle:User, property: username }
 
     firewalls:
-        dev:
-            pattern:  ^/(_(profiler|wdt)|css|images|js)/
-            security: false
-
-        login:
-            security: false
-
+        login_firewall:
+             pattern:    ^/login$
+             anonymous:  ~
         secured_area:
-            anonymous: ~
+             pattern:    ^/
+             form_login: ~
 
     access_control:
-        - { path: ^/backend/, roles: ROLE_ADMIN }
-        #- { path: ^/login, roles: IS_AUTHENTICATED_ANONYMOUSLY, requires_channel: https }
+        - { path: ^/backend/users, roles: ROLE_SUPER_ADMIN }
+        - { path: ^/backend, roles: ROLE_ADMIN }
+        - { path: ^/login, roles: IS_AUTHENTICATED_ANONYMOUSLY }

@@ -4,7 +4,6 @@ namespace Blogger\AdminBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Blogger\BlogBundle\Entity\Tag;
-use Blogger\BlogBundle\Entity\Blog;
 use Blogger\AdminBundle\Form\TagType;
 use Symfony\Component\HttpFoundation\Request;
 

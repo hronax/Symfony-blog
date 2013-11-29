@@ -3,16 +3,20 @@
 {% block body %}
     <h2>Edit Blogs:</h2>
     <h2 id="add_blog"><a href="{{ path('BloggerAdminBundle_blog_new') }}">+ Add new Blog</a></h2>
-    {% for blog in blogs %}
+    {% for blog in pagination %}
         <article class="blog posted{% if blog.posted %}{{ 1 }}{% else %}{{ 0 }}{% endif %}">
             <header>
-                <h3><a href="{{ path('BloggerAdminBundle_blog_edit', { 'blogId': blog.id }) }}">{{ blog.title }}</a></h3>
+                <h3>{{ blog.title }} <a href="{{ path('BloggerAdminBundle_blog_edit', { 'blogId': blog.id }) }}">(edit)</a></h3>
             </header>
             <div class="date"><time datetime="{{ blog.created|date('c') }}">{{ blog.created|created_ago }}</time></div>
-            <div class="category">{{ blog.category }}</div>
+            <div class="category"><strong>Category:</strong> {{ blog.category }}</div>
+            <div class="tags"><strong>Tags:</strong> {{ blog.tagsAsString }}</div>
             <a class="delete_link" href="{{ path('BloggerAdminBundle_blog_delete', { 'blogId': blog.id }) }}">Delete Blog</a>
         </article>
     {% else %}
         <p>There are no blog entries for symblog</p>
     {% endfor %}
+    <div class="navigation">
+        {{ knp_pagination_render(pagination) }}
+    </div>
 {% endblock %}

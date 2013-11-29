@@ -18,7 +18,7 @@
     </header>
     <p class="tags">
         {% for tag in tags %}
-        <a href="{{ path('BloggerBlogBundle_tag', { 'slug': tag.slug }) }}" style="font-weight:{{ tag.weight }}">{{ tag }}</a>
+        <a href="{{ path('BloggerBlogBundle_tag', { 'slug': tag.slug }) }}" style="font-size:{{ tag.weight }}px" title="{{ tag.postedBlogCount }}">{{ tag }}</a>
         {% else %}
         <p>There are no tags</p>
         {% endfor %}

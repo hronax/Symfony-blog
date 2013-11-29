@@ -5,3 +5,8 @@ BloggerAdminBundle:
     resource: "@BloggerAdminBundle/Resources/config/routing.yml"
     prefix:   /backend
 
+login:
+    path:   /login
+    defaults:  { _controller: BloggerAdminBundle:Security:login }
+login_check:
+    path:   /login_check

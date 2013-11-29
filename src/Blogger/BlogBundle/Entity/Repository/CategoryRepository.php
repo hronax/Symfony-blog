@@ -28,7 +28,7 @@ class CategoryRepository extends EntityRepository
             ->select('c')
             ->where('c.id = 1');
         return $qb->getQuery()
-            ->getResult();
+            ->getOneOrNullResult();
     }
 
     public function getCategoriesListWithBlogs() {
@@ -58,10 +58,6 @@ class CategoryRepository extends EntityRepository
             ->select('c')
             ->where('c.slug = :slug')
             ->setParameter('slug', $slug);
-        $result = $qb->getQuery()->getResult();
-        if($result)
-            return $result[0];
-        else
-            return false;
+        return $qb->getQuery()->getOneOrNullResult();
     }
 }

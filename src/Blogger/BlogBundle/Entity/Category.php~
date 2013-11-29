@@ -3,10 +3,7 @@ namespace Blogger\BlogBundle\Entity;
 
 use Blogger\BlogBundle\HelpTools\HelpTools;
 use Doctrine\ORM\Mapping as ORM;
-use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Component\Console\Helper\Helper;
-use Symfony\Component\Validator\Mapping\ClassMetadata;
-use Symfony\Component\Validator\Constraints\NotBlank;
 
 /**
  * @ORM\Entity(repositoryClass="Blogger\BlogBundle\Entity\Repository\CategoryRepository")
@@ -26,8 +23,6 @@ class Category
      * @ORM\OneToMany(targetEntity="Blog", mappedBy="category")
      */
     protected $blogs;
-
-    protected $blogCount;
 
     /**
      * @ORM\Column(type="string")
@@ -50,7 +45,7 @@ class Category
     public function __construct()
     {
         $this->blogs = new \Doctrine\Common\Collections\ArrayCollection();
-        $this->default = false;
+        $this->isDefault = false;
     }
     
     /**
@@ -72,8 +67,6 @@ class Category
     public function setName($name)
     {
         $this->name = $name;
-
-        $this->setSlug($this->name);
 
         return $this;
     }
@@ -134,16 +127,18 @@ class Category
         return $this->isDefault;
     }
 
-    public function setBlogCount($blogCount)
-    {
-        $this->blogCount = $blogCount;
-
-        return $this;
-    }
-
     public function getBlogCount()
     {
-        return $this->blogCount;
+            return $this->blogs->count();
+    }
+
+    public function getPostedBlogCount() {
+        $postedBlogCount = 0;
+        foreach($this->blogs as $blog) {
+            if($blog->getPosted() == 1)
+                $postedBlogCount++;
+        }
+        return $postedBlogCount;
     }
 
     /**
@@ -177,5 +172,10 @@ class Category
     public function getBlogs()
     {
         return $this->blogs;
+    }
+
+    public function __toString()
+    {
+        return $this->getName();
     }
 }

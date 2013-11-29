@@ -1,7 +1,7 @@
-{# src/Blogger/BlogBundle/Resources/views/Page/category.html.twig #}
+{# src/Blogger/BlogBundle/Resources/views/Page/tag.html.twig #}
 {% extends 'BloggerBlogBundle::Page/index.html.twig' %}
 
 {% block body %}
-    <h1>Blogs in category {{ cat.name }}</h1>
+    <h1>Blogs on tag "{{ tag.name }}"</h1>
     {{ parent(pagination) }}
 {% endblock %}

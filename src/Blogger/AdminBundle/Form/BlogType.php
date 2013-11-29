@@ -16,7 +16,17 @@ class BlogType extends AbstractType
     {
         $builder
             ->add('title')
-            ->add('blog')
+            ->add(
+                'blog',
+                null,
+                array(
+                    'label' => false,
+                    'attr' => array(
+                        'class' => 'tinymce',
+                        'data-theme' => 'bbcode'
+                    )
+                )
+            )
             ->add(
                 'category',
                 null,

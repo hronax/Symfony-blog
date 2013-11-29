@@ -19,7 +19,7 @@ class BlogController extends Controller
         $blog  = new Blog();
         $em = $this->
             getDoctrine();
-        $blog->setCategory($em->getRepository('BloggerBlogBundle:Category')->getDefaultCategory()[0]);
+        $blog->setCategory($em->getRepository('BloggerBlogBundle:Category')->getDefaultCategory());
         $form  = $this->createForm(new BlogType(), $blog);
 
         return $this->render('BloggerAdminBundle:Blog:form.html.twig', array(
@@ -132,7 +132,8 @@ class BlogController extends Controller
             ->getManager();
         $tagRepository = $em->getRepository('BloggerBlogBundle:Tag');
 
-        $blog->getTags()->clear();
+        if($blog->getTags())
+            $blog->getTags()->clear();
         $blogTags = array_map('trim', explode(",", $blog->getTagString()));
 
         foreach(array_unique($blogTags) as $tag) {

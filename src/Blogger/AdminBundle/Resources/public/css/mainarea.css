@@ -81,3 +81,16 @@ form.blogger ul li {
     color: #4F8A10;
     margin-bottom: 10px;
 }
+
+h3 {
+    font-size: 18px;
+    font-weight: normal;
+}
+
+article.blog div {
+    margin-top:5px;
+}
+
+strong {
+    font-weight: bold;
+}

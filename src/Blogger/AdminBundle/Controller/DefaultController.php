@@ -3,6 +3,7 @@
 namespace Blogger\AdminBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Knp\Bundle\PaginatorBundle\KnpPaginatorBundle;
 
 class DefaultController extends Controller
 {
@@ -14,8 +15,15 @@ class DefaultController extends Controller
         $blogs = $em->getRepository('BloggerBlogBundle:Blog')
             ->getLatestBlogs();
 
+        $paginator  = $this->get('knp_paginator');
+        $pagination = $paginator->paginate(
+            $blogs,
+            $this->get('request')->query->get('page', 1)/*page number*/,
+            5/*limit per page*/
+        );
+
         return $this->render('BloggerAdminBundle:Default:index.html.twig', array(
-            'blogs' => $blogs
+            'pagination' => $pagination
         ));
     }
 
@@ -27,8 +35,15 @@ class DefaultController extends Controller
         $categories = $em->getRepository('BloggerBlogBundle:Category')
             ->getCategoriesList();
 
+        $paginator  = $this->get('knp_paginator');
+        $pagination = $paginator->paginate(
+            $categories,
+            $this->get('request')->query->get('page', 1)/*page number*/,
+            5/*limit per page*/
+        );
+
         return $this->render('BloggerAdminBundle:Default:categories.html.twig', array(
-            'categories' => $categories
+            'pagination' => $pagination
         ));
     }
 
@@ -40,8 +55,15 @@ class DefaultController extends Controller
         $tags = $em->getRepository('BloggerBlogBundle:Tag')
             ->getTagList();
 
+        $paginator  = $this->get('knp_paginator');
+        $pagination = $paginator->paginate(
+            $tags,
+            $this->get('request')->query->get('page', 1)/*page number*/,
+            5/*limit per page*/
+        );
+
         return $this->render('BloggerAdminBundle:Default:tags.html.twig', array(
-            'tags' => $tags
+            'pagination' => $pagination
         ));
     }
 
