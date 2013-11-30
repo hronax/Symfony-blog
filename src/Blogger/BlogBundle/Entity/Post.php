@@ -1,5 +1,5 @@
 <?php
-// src/Blogger/BlogBundle/Entity/Blog.php
+// src/Blogger/BlogBundle/Entity/Post.php
 
 namespace Blogger\BlogBundle\Entity;
 
@@ -8,11 +8,11 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Blogger\BlogBundle\HelpTools\HelpTools;
 
 /**
- * @ORM\Entity(repositoryClass="Blogger\BlogBundle\Entity\Repository\BlogRepository")
- * @ORM\Table(name="blog")
+ * @ORM\Entity(repositoryClass="Blogger\BlogBundle\Entity\Repository\PostRepository")
+ * @ORM\Table(name="post")
  * @ORM\HasLifecycleCallbacks
  */
-class Blog
+class Post
 {
     /**
      * @ORM\Id
@@ -39,7 +39,7 @@ class Blog
     /**
      * @ORM\Column(type="text")
      */
-    protected $blog;
+    protected $post;
 
     /**
      * @ORM\Column(type="string", length=20)
@@ -48,9 +48,9 @@ class Blog
 
     /**
      *
-     * @ORM\ManyToMany(targetEntity="Tag", inversedBy="blogs")
-     * @ORM\JoinTable(name="blog_tags",
-     *      joinColumns={@ORM\JoinColumn(name="blog_id", referencedColumnName="id")},
+     * @ORM\ManyToMany(targetEntity="Tag", inversedBy="posts")
+     * @ORM\JoinTable(name="post_tags",
+     *      joinColumns={@ORM\JoinColumn(name="post_id", referencedColumnName="id")},
      *      inverseJoinColumns={@ORM\JoinColumn(name="tag_id", referencedColumnName="id")}
      *      )
      */
@@ -59,13 +59,13 @@ class Blog
     protected $tagString;
 
     /**
-     * @ORM\ManyToOne(targetEntity="Category", inversedBy="blogs")
+     * @ORM\ManyToOne(targetEntity="Category", inversedBy="posts")
      * @ORM\JoinColumn(name="category_id", referencedColumnName="id", onDelete="SET NULL")
      */
     protected $category;
 
     /**
-     * @ORM\OneToMany(targetEntity="Comment", mappedBy="blog")
+     * @ORM\OneToMany(targetEntity="Comment", mappedBy="post")
      */
     protected $comments;
 
@@ -98,7 +98,7 @@ class Blog
      * Set title
      *
      * @param string $title
-     * @return Blog
+     * @return Post
      */
     public function setTitle($title)
     {
@@ -123,7 +123,7 @@ class Blog
      * Set author
      *
      * @param string $author
-     * @return Blog
+     * @return Post
      */
     public function setAuthor($author)
     {
@@ -143,36 +143,36 @@ class Blog
     }
 
     /**
-     * Set blog
+     * Set post
      *
-     * @param string $blog
-     * @return Blog
+     * @param string $post
+     * @return Post
      */
-    public function setBlog($blog)
+    public function setBlog($post)
     {
-        $this->blog = $blog;
+        $this->post = $post;
     
         return $this;
     }
 
     /**
-     * Get blog
+     * Get post
      *
      * @return string
      */
     public function getBlog($length = null)
     {
         if (false === is_null($length) && $length > 0)
-            return substr($this->blog, 0, $length);
+            return substr($this->post, 0, $length);
         else
-            return $this->blog;
+            return $this->post;
     }
 
     /**
      * Set image
      *
      * @param string $image
-     * @return Blog
+     * @return Post
      */
     public function setImage($image)
     {
@@ -195,7 +195,7 @@ class Blog
      * Set created
      *
      * @param \DateTime $created
-     * @return Blog
+     * @return Post
      */
     public function setCreated($created)
     {
@@ -218,7 +218,7 @@ class Blog
      * Set updated
      *
      * @param \DateTime $updated
-     * @return Blog
+     * @return Post
      */
     public function setUpdated($updated)
     {
@@ -285,7 +285,7 @@ class Blog
      * Set slug
      *
      * @param string $slug
-     * @return Blog
+     * @return Post
      */
     public function setSlug($slug)
     {
@@ -308,7 +308,7 @@ class Blog
      * Add tags
      *
      * @param \Blogger\BlogBundle\Entity\Tag $tags
-     * @return Blog
+     * @return Post
      */
     public function addTag(\Blogger\BlogBundle\Entity\Tag $tags)
     {
@@ -331,7 +331,7 @@ class Blog
      * Set category
      *
      * @param \Blogger\BlogBundle\Entity\Category $category
-     * @return Blog
+     * @return Post
      */
     public function setCategory(\Blogger\BlogBundle\Entity\Category $category = null)
     {
@@ -354,7 +354,7 @@ class Blog
      * Set posted
      *
      * @param boolean $posted
-     * @return Blog
+     * @return Post
      */
     public function setPosted($posted)
     {
@@ -396,12 +396,35 @@ class Blog
     }
 
     /**
-     * Get blogs
+     * Get tags
      *
      * @return \Doctrine\Common\Collections\Collection
      */
     public function getTags()
     {
         return $this->tags;
+    }
+
+    /**
+     * Set post
+     *
+     * @param string $post
+     * @return Post
+     */
+    public function setPost($post)
+    {
+        $this->post = $post;
+    
+        return $this;
+    }
+
+    /**
+     * Get post
+     *
+     * @return string 
+     */
+    public function getPost()
+    {
+        return $this->post;
     }
 }

@@ -37,10 +37,10 @@ class Comment
     protected $approved;
 
     /**
-     * @ORM\ManyToOne(targetEntity="Blog", inversedBy="comments")
-     * @ORM\JoinColumn(name="blog_id", referencedColumnName="id", onDelete="CASCADE")
+     * @ORM\ManyToOne(targetEntity="Post", inversedBy="comments")
+     * @ORM\JoinColumn(name="post_id", referencedColumnName="id", onDelete="CASCADE")
      */
-    protected $blog;
+    protected $post;
 
     /**
      * @ORM\Column(type="datetime")
@@ -194,26 +194,26 @@ class Comment
     }
 
     /**
-     * Set blog
+     * Set post
      *
-     * @param \Blogger\BlogBundle\Entity\Blog $blog
+     * @param \Blogger\BlogBundle\Entity\Post $post
      * @return Comment
      */
-    public function setBlog(\Blogger\BlogBundle\Entity\Blog $blog = null)
+    public function setPost(\Blogger\BlogBundle\Entity\Post $post = null)
     {
-        $this->blog = $blog;
+        $this->post = $post;
     
         return $this;
     }
 
     /**
-     * Get blog
+     * Get post
      *
-     * @return \Blogger\BlogBundle\Entity\Blog 
+     * @return \Blogger\BlogBundle\Entity\Post
      */
-    public function getBlog()
+    public function getPost()
     {
-        return $this->blog;
+        return $this->post;
     }
 
     public static function loadValidatorMetadata(ClassMetadata $metadata)

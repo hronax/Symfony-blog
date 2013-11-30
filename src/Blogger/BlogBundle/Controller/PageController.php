@@ -16,12 +16,12 @@ class PageController extends Controller
         $em = $this->getDoctrine()
             ->getManager();
 
-        $blogs = $em->getRepository('BloggerBlogBundle:Blog')
-            ->getLatestBlogs(false);
+        $posts = $em->getRepository('BloggerBlogBundle:Post')
+            ->getLatestPosts(false);
 
         $paginator  = $this->get('knp_paginator');
         $pagination = $paginator->paginate(
-            $blogs,
+            $posts,
             $this->get('request')->query->get('page', 1)/*page number*/,
             5/*limit per page*/
         );
@@ -98,12 +98,12 @@ class PageController extends Controller
             ->getManager();
 
         $category = $em->getRepository('BloggerBlogBundle:Category')->findBySlug($slug);
-        $blogs = $em->getRepository('BloggerBlogBundle:Blog')
-            ->getBlogsInCategory($category->getId());
+        $posts = $em->getRepository('BloggerBlogBundle:Post')
+            ->getPostsInCategory($category->getId());
 
         $paginator  = $this->get('knp_paginator');
         $pagination = $paginator->paginate(
-            $blogs,
+            $posts,
             $this->get('request')->query->get('page', 1)/*page number*/,
             5/*limit per page*/
         );
@@ -120,12 +120,12 @@ class PageController extends Controller
             ->getManager();
 
         $tag = $em->getRepository('BloggerBlogBundle:Tag')->findBySlug($slug);
-        $blogs = $em->getRepository('BloggerBlogBundle:Blog')
-            ->getBlogsOnTag($tag->getId());
+        $posts = $em->getRepository('BloggerBlogBundle:Post')
+            ->getPostsOnTag($tag->getId());
 
         $paginator  = $this->get('knp_paginator');
         $pagination = $paginator->paginate(
-            $blogs,
+            $posts,
             $this->get('request')->query->get('page', 1)/*page number*/,
             5/*limit per page*/
         );

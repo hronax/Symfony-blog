@@ -2,40 +2,40 @@ BloggerAdminBundle_homepage:
     pattern:  /
     defaults: { _controller: BloggerAdminBundle:Default:index }
 
-############### blogs
-BloggerAdminBundle_blog_edit:
-    pattern:  /edit/blog/{blogId}
-    defaults: { _controller: BloggerAdminBundle:Blog:editBlog }
+############### posts
+BloggerAdminBundle_post_edit:
+    pattern:  /edit/post/{postId}
+    defaults: { _controller: BloggerAdminBundle:Post:editPost }
     requirements:
         _method:  GET|POST
-        blogId: \d+
+        postId: \d+
 
-BloggerAdminBundle_blog_delete:
-    pattern:  /delete/blog/{blogId}
-    defaults: { _controller: BloggerAdminBundle:Blog:delete }
+BloggerAdminBundle_post_delete:
+    pattern:  /delete/post/{postId}
+    defaults: { _controller: BloggerAdminBundle:Post:delete }
     requirements:
         _method:  GET
-        blogId: \d+
+        postId: \d+
 
-BloggerAdminBundle_blog_create:
-    pattern:  /create-blog
-    defaults: { _controller: BloggerAdminBundle:Blog:create }
+BloggerAdminBundle_post_create:
+    pattern:  /create-post
+    defaults: { _controller: BloggerAdminBundle:Post:create }
     requirements:
         _method:  GET|POST
 
-BloggerAdminBundle_blog_submitEdition:
-    pattern:  /edit-blog/{blogId}
-    defaults: { _controller: BloggerAdminBundle:Blog:submitEdition }
+BloggerAdminBundle_post_submitEdition:
+    pattern:  /edit-post/{postId}
+    defaults: { _controller: BloggerAdminBundle:Post:submitEdition }
     requirements:
         _method:  GET|POST
-        blogId: \d+
+        postId: \d+
 
-BloggerAdminBundle_blog_new:
-    pattern:  /new-blog
-    defaults: { _controller: BloggerAdminBundle:Blog:newBlog }
+BloggerAdminBundle_post_new:
+    pattern:  /new-post
+    defaults: { _controller: BloggerAdminBundle:Post:newPost }
     requirements:
         _method:  GET
-############# end of blogs
+############# end of posts
 
 
 ############## categories

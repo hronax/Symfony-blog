@@ -12,12 +12,12 @@ use Blogger\BlogBundle\Form\CommentType;
  */
 class CommentController extends Controller
 {
-    public function newAction($blogId)
+    public function newAction($pageId)
     {
-        $blog = $this->getBlog($blogId);
+        $post = $this->getPage($pageId);
 
         $comment = new Comment();
-        $comment->setBlog($blog);
+        $comment->setPage($post);
         $form   = $this->createForm(new CommentType(), $comment);
 
         return $this->render('BloggerBlogBundle:Comment:form.html.twig', array(
@@ -26,12 +26,12 @@ class CommentController extends Controller
         ));
     }
 
-    public function createAction($blogId)
+    public function createAction($pageId)
     {
-        $blog = $this->getBlog($blogId);
+        $post = $this->getPage($pageId);
 
         $comment  = new Comment();
-        $comment->setBlog($blog);
+        $comment->setPage($post);
         $request = $this->getRequest();
         $form    = $this->createForm(new CommentType(), $comment);
         $form->submit($request);
@@ -42,9 +42,9 @@ class CommentController extends Controller
             $em->persist($comment);
             $em->flush();
 
-            return $this->redirect($this->generateUrl('BloggerBlogBundle_blog_show', array(
-                'id'    => $comment->getBlog()->getId(),
-                'slug'  => $comment->getBlog()->getSlug())) .
+            return $this->redirect($this->generateUrl('BloggerBlogBundle_page_show', array(
+                'id'    => $comment->getPage()->getId(),
+                'slug'  => $comment->getPage()->getSlug())) .
                 '#comment-' . $comment->getId()
             );
         }
@@ -55,17 +55,17 @@ class CommentController extends Controller
         ));
     }
 
-    protected function getBlog($blogId)
+    protected function getPage($pageId)
     {
         $em = $this->getDoctrine();
 
-        $blog = $em->getRepository('BloggerBlogBundle:Blog')->find($blogId);
+        $post = $em->getRepository('BloggerBlogBundle:Post')->find($pageId);
 
-        if (!$blog) {
-            throw $this->createNotFoundException('Unable to find Blog post.');
+        if (!$post) {
+            throw $this->createNotFoundException('Unable to find Post post.');
         }
 
-        return $blog;
+        return $post;
     }
 
 }

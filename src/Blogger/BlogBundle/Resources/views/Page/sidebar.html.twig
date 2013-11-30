@@ -6,7 +6,7 @@
     </header>
     <ul class="categories">
         {% for category in categories %}
-        <li style="padding-left: {{ category['offset']*20 }}px"><a href="{{ path('BloggerBlogBundle_category', { 'slug': category['category'].slug }) }}">{{ category['category'].name }}</a> ({{ category['category'].blogCount }})</li>
+        <li style="padding-left: {{ category['offset']*20 }}px"><a href="{{ path('BloggerBlogBundle_category', { 'slug': category['category'].slug }) }}">{{ category['category'].name }}</a> ({{ category['category'].postCount }})</li>
         {% endfor %}
     </ul>
 </section>
@@ -16,7 +16,7 @@
     </header>
     <p class="tags">
         {% for tag in tags %}
-        <a href="{{ path('BloggerBlogBundle_tag', { 'slug': tag.slug }) }}" style="font-size:{{ tag.weight }}px" title="{{ tag.postedBlogCount }}">{{ tag }}</a>
+        <a href="{{ path('BloggerBlogBundle_tag', { 'slug': tag.slug }) }}" style="font-size:{{ tag.weight }}px" title="{{ tag.postedpostCount }}">{{ tag }}</a>
         {% else %}
         <p>There are no tags</p>
         {% endfor %}
@@ -30,8 +30,8 @@
         <article class="comment">
             <header>
                 <p class="small"><span class="highlight">{{ comment.user }}</span> commented on
-                    <a href="{{ path('BloggerBlogBundle_blog_show', { 'id': comment.blog.id , 'slug': comment.blog.slug }) }}#comment-{{ comment.id }}">
-                        {{ comment.blog.title }}
+                    <a href="{{ path('BloggerBlogBundle_post_show', { 'id': comment.post.id , 'slug': comment.post.slug }) }}#comment-{{ comment.id }}">
+                        {{ comment.post.title }}
                     </a>
                     [<em><time datetime="{{ comment.created|date('c') }}">{{ comment.created|created_ago }}</time></em>]
                 </p>

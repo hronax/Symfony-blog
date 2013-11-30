@@ -1,4 +1,4 @@
-<form action="{% if create  %}{{ path('BloggerAdminBundle_blog_create') }}{% else %}{{ path('BloggerAdminBundle_blog_submitEdition', { 'blogId': blog.id }) }}
+<form action="{% if create  %}{{ path('BloggerAdminBundle_post_create') }}{% else %}{{ path('BloggerAdminBundle_post_submitEdition', { 'postId': post.id }) }}
                 {% endif %}"
 method="post" {{ form_enctype(form) }} class="blogger">
 

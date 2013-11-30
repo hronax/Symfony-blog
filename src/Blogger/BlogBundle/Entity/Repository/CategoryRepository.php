@@ -15,11 +15,11 @@ class CategoryRepository extends EntityRepository
     public function getCategoriesList($withEmpty = false)
     {
         $qb = $this->createQueryBuilder('c')
-            ->select('c, b')
-            ->leftJoin('c.blogs', 'b')
+            ->select('c', 'p')
+            ->leftJoin('c.posts', 'p')
             ->addOrderBy('c.name', 'ASC');
             if(!$withEmpty)
-                $qb->where('b.posted = 1');
+                $qb->where('p.posted = 1');
 
         return $qb->getQuery()
             ->getResult();
@@ -104,12 +104,12 @@ class CategoryRepository extends EntityRepository
         return $categories;
     }
 
-    public function recountBlogCountForAllCategories() {
+    public function recountPostCountForAllCategories() {
         $categories = $this->getCategoriesList();
 
         foreach ($categories as $category) {
             $em = $this->getEntityManager();
-            $category->setBlogCount($em->getRepository('BloggerBlogBundle:Blog')->getBlogCountInCategory($category));
+            $category->setPostCount($em->getRepository('BloggerBlogBundle:Post')->getPostCountInCategory($category));
         }
     }
 }

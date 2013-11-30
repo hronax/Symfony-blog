@@ -16,9 +16,9 @@ BloggerBlogBundle_contact:
     requirements:
         _method:  GET|POST
 
-BloggerBlogBundle_blog_show:
+BloggerBlogBundle_post_show:
     pattern:  /{id}/{slug}
-    defaults: { _controller: BloggerBlogBundle:Blog:show }
+    defaults: { _controller: BloggerBlogBundle:Post:show }
     requirements:
         _method:  GET
         id: \d+
@@ -36,8 +36,8 @@ BloggerBlogBundle_tag:
         _method:  GET
 
 BloggerBlogBundle_comment_create:
-    pattern:  /comment/{blogId}
+    pattern:  /comment/{postId}
     defaults: { _controller: BloggerBlogBundle:Comment:create }
     requirements:
         _method:  POST
-        blogId: \d+
+        postId: \d+

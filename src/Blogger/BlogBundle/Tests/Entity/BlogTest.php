@@ -3,34 +3,34 @@
 
 namespace Blogger\BlogBundle\Tests\Entity;
 
-use Blogger\BlogBundle\Entity\Blog;
+use Blogger\BlogBundle\Entity\Post;
 
 class BlogTest extends \PHPUnit_Framework_TestCase
 {
     public function testSlugify()
     {
-        $blog = new Blog();
+        $post = new Post();
 
-        $this->assertEquals('hello-world', $blog->slugify('Hello World'));
-        $this->assertEquals('a-day-with-symfony2', $blog->slugify('A Day With Symfony2'));
-        $this->assertEquals('hello-world', $blog->slugify('Hello    world'));
-        $this->assertEquals('symblog', $blog->slugify('symblog '));
-        $this->assertEquals('symblog', $blog->slugify(' symblog'));
+        $this->assertEquals('hello-world', $post->slugify('Hello World'));
+        $this->assertEquals('a-day-with-symfony2', $post->slugify('A Day With Symfony2'));
+        $this->assertEquals('hello-world', $post->slugify('Hello    world'));
+        $this->assertEquals('symblog', $post->slugify('symblog '));
+        $this->assertEquals('symblog', $post->slugify(' symblog'));
     }
 
     public function testSetSlug()
     {
-        $blog = new Blog();
+        $post = new Post();
 
-        $blog->setSlug('Symfony2 Blog');
-        $this->assertEquals('symfony2-blog', $blog->getSlug());
+        $post->setSlug('Symfony2 Post');
+        $this->assertEquals('symfony2-blog', $post->getSlug());
     }
 
     public function testSetTitle()
     {
-        $blog = new Blog();
+        $post = new Post();
 
-        $blog->setTitle('Hello World');
-        $this->assertEquals('hello-world', $blog->getSlug());
+        $post->setTitle('Hello World');
+        $this->assertEquals('hello-world', $post->getSlug());
     }
 }

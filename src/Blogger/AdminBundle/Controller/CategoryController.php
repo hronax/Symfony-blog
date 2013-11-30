@@ -107,7 +107,7 @@ class CategoryController extends Controller
 
             if($isUnique) {
                 $em->persist($category);
-                $em->getRepository('BloggerBlogBundle:Category')->recountBlogCountForAllCategories();
+                $em->getRepository('BloggerBlogBundle:Category')->recountPostCountForAllCategories();
                 $em->flush();
 
                 return $this->redirect($this->generateUrl('BloggerAdminBundle_default_categories'));
@@ -140,13 +140,13 @@ class CategoryController extends Controller
             throw $this->createNotFoundException('Unable to find Category.');
         }
 
-        foreach ($category->getBlogs() AS $blog) {
-            $blog->setCategory($em->getRepository('BloggerBlogBundle:Category')->getDefaultCategory());
-            $em->persist($blog);
+        foreach ($category->getPosts() AS $post) {
+            $post->setCategory($em->getRepository('BloggerBlogBundle:Category')->getDefaultCategory());
+            $em->persist($post);
         }
 
         $em->remove($category);
-        $em->getRepository('BloggerBlogBundle:Category')->recountBlogCountForAllCategories();
+        $em->getRepository('BloggerBlogBundle:Category')->recountPostCountForAllCategories();
         $em->flush();
 
         return $this->redirect($this->generateUrl('BloggerAdminBundle_default_categories'));

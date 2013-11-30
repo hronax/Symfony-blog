@@ -1,10 +1,10 @@
-article.blog {
+article.post {
     border: 1px solid #ccc;
     padding: 10px;
     margin: 5px;
 }
 
-h2#add_blog {
+h2#add_post {
     float:right;
     margin-top: -48px;
 }
@@ -61,7 +61,7 @@ form.blogger ul li {
     margin-bottom: 5px;
 }
 
-#blogger_blogbundle_blog_tags {
+#blogger_blogbundle_post_tags {
     height: 40px;
 }
 
@@ -87,7 +87,7 @@ h3 {
     font-weight: normal;
 }
 
-article.blog div {
+article.post div {
     margin-top:5px;
 }
 

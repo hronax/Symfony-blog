@@ -143,8 +143,8 @@ class TagController extends Controller
             throw $this->createNotFoundException('Unable to find Tag post.');
         }
 
-        foreach ($tag->getBlogs() AS $blog) {
-            $blog->removeTag($tag);
+        foreach ($tag->getPosts() AS $post) {
+            $post->removeTag($tag);
         }
 
         $em->remove($tag);

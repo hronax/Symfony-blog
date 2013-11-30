@@ -20,7 +20,7 @@ class UserFixtures extends AbstractFixture implements OrderedFixtureInterface
             ->addRole($manager->merge($this->getReference('superadmin')));
         $manager->persist($user1);
 
-        $manager->getRepository('BloggerBlogBundle:Category')->recountBlogCountForAllCategories();
+        $manager->getRepository('BloggerBlogBundle:Category')->recountPostCountForAllCategories();
         $manager->flush();
     }
 

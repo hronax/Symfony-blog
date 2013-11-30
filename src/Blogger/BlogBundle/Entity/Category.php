@@ -20,14 +20,14 @@ class Category
     protected $id;
 
     /**
-     * @ORM\OneToMany(targetEntity="Blog", mappedBy="category")
+     * @ORM\OneToMany(targetEntity="Post", mappedBy="category")
      */
-    protected $blogs;
+    protected $posts;
 
     /**
      * @ORM\Column(type="integer")
      */
-    protected $blogCount;
+    protected $postCount;
 
     /**
      * @ORM\Column(type="string")
@@ -60,11 +60,11 @@ class Category
      */
     public function __construct()
     {
-        $this->blogs = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->posts = new \Doctrine\Common\Collections\ArrayCollection();
         $this->parent = null;
         $this->children = new \Doctrine\Common\Collections\ArrayCollection();
         $this->isDefault = false;
-        $this->blogCount = 0;
+        $this->postCount = 0;
     }
 
     /**
@@ -147,36 +147,36 @@ class Category
     }
 
     /**
-     * Add blogs
+     * Add posts
      *
-     * @param \Blogger\BlogBundle\Entity\Blog $blogs
+     * @param \Blogger\BlogBundle\Entity\Post $posts
      * @return Category
      */
-    public function addBlog(\Blogger\BlogBundle\Entity\Blog $blogs)
+    public function addPost(\Blogger\BlogBundle\Entity\Post $posts)
     {
-        $this->blogs[] = $blogs;
+        $this->posts[] = $posts;
     
         return $this;
     }
 
     /**
-     * Remove blogs
+     * Remove posts
      *
-     * @param \Blogger\BlogBundle\Entity\Blog $blogs
+     * @param \Blogger\BlogBundle\Entity\Post $posts
      */
-    public function removeBlog(\Blogger\BlogBundle\Entity\Blog $blogs)
+    public function removePost(\Blogger\BlogBundle\Entity\Post $posts)
     {
-        $this->blogs->removeElement($blogs);
+        $this->posts->removeElement($posts);
     }
 
     /**
-     * Get blogs
+     * Get posts
      *
      * @return \Doctrine\Common\Collections\Collection 
      */
-    public function getBlogs()
+    public function getPosts()
     {
-        return $this->blogs;
+        return $this->posts;
     }
 
     public function __toString()
@@ -254,22 +254,22 @@ class Category
         return $this->children;
     }
 
-    public function getBlogCount($onlyPublic = true)
+    public function getPostCount($onlyPublic = true)
     {
         if ($onlyPublic)
-            return $this->blogCount;
-        return $this->blogs->count();
+            return $this->postCount;
+        return $this->posts->count();
     }
 
     /**
-     * Set blogCount
+     * Set postCount
      *
-     * @param integer $blogCount
+     * @param integer $postCount
      * @return Category
      */
-    public function setBlogCount($blogCount)
+    public function setPostCount($postCount)
     {
-        $this->blogCount = $blogCount;
+        $this->postCount = $postCount;
     
         return $this;
     }

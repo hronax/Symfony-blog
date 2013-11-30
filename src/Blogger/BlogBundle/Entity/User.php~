@@ -1,5 +1,4 @@
 <?php
-// src/Blogger/BlogBundle/Entity/User.php
 namespace Blogger\BlogBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;

@@ -6,7 +6,7 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
-class BlogType extends AbstractType
+class PostType extends AbstractType
 {
      /**
      * @param FormBuilderInterface $builder
@@ -17,7 +17,7 @@ class BlogType extends AbstractType
         $builder
             ->add('title')
             ->add(
-                'blog',
+                'post',
                 null,
                 array(
                     'label' => false,
@@ -65,7 +65,7 @@ class BlogType extends AbstractType
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => 'Blogger\BlogBundle\Entity\Blog'
+            'data_class' => 'Blogger\BlogBundle\Entity\Post'
         ));
     }
 
@@ -74,6 +74,6 @@ class BlogType extends AbstractType
      */
     public function getName()
     {
-        return 'blogger_blogbundle_blog';
+        return 'blogger_blogbundle_post';
     }
 }

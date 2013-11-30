@@ -12,12 +12,12 @@ class DefaultController extends Controller
         $em = $this->getDoctrine()
             ->getManager();
 
-        $blogs = $em->getRepository('BloggerBlogBundle:Blog')
-            ->getLatestBlogs();
+        $posts = $em->getRepository('BloggerBlogBundle:Post')
+            ->getLatestPosts();
 
         $paginator  = $this->get('knp_paginator');
         $pagination = $paginator->paginate(
-            $blogs,
+            $posts,
             $this->get('request')->query->get('page', 1)/*page number*/,
             5/*limit per page*/
         );

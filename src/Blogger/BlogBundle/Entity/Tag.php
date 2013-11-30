@@ -19,9 +19,9 @@ class Tag
     protected $id;
 
     /**
-     * @ORM\ManyToMany(targetEntity="Blog", mappedBy="tags")
+     * @ORM\ManyToMany(targetEntity="Post", mappedBy="tags")
      */
-    protected $blogs;
+    protected $posts;
 
     /**
      * @ORM\Column(type="string")
@@ -39,7 +39,7 @@ class Tag
      */
     public function __construct()
     {
-        $this->blogs = new ArrayCollection();
+        $this->posts = new ArrayCollection();
         $this->weight = 0;
     }
     
@@ -123,50 +123,50 @@ class Tag
     }
 
     /**
-     * Add blogs
+     * Add posts
      *
-     * @param \Blogger\BlogBundle\Entity\Blog $blogs
+     * @param \Blogger\BlogBundle\Entity\Post $posts
      * @return Tag
      */
-    public function addBlog(\Blogger\BlogBundle\Entity\Blog $blogs)
+    public function addPost(\Blogger\BlogBundle\Entity\Post $posts)
     {
-        $this->blogs[] = $blogs;
+        $this->posts[] = $posts;
     
         return $this;
     }
 
     /**
-     * Remove blogs
+     * Remove posts
      *
-     * @param \Blogger\BlogBundle\Entity\Blog $blogs
+     * @param \Blogger\BlogBundle\Entity\Post $posts
      */
-    public function removeBlog(\Blogger\BlogBundle\Entity\Blog $blogs)
+    public function removePost(\Blogger\BlogBundle\Entity\Post $posts)
     {
-        $this->blogs->removeElement($blogs);
+        $this->posts->removeElement($posts);
     }
 
     /**
-     * Get blogs
+     * Get posts
      *
      * @return \Doctrine\Common\Collections\Collection 
      */
-    public function getBlogs()
+    public function getPosts()
     {
-        return $this->blogs;
+        return $this->posts;
     }
 
-    public function getBlogCount()
+    public function getPostCount()
     {
-        return $this->blogs->count();
+        return $this->posts->count();
     }
 
-    public function getPostedBlogCount() {
-        $postedBlogCount = 0;
-        foreach($this->blogs as $blog) {
-            if($blog->getPosted() == 1)
-                $postedBlogCount++;
+    public function getPostedPostCount() {
+        $postedPostCount = 0;
+        foreach($this->posts as $post) {
+            if($post->getPosted() == 1)
+                $postedPostCount++;
         }
-        return $postedBlogCount;
+        return $postedPostCount;
     }
 
     public function __toString()

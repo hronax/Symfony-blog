@@ -1,0 +1,31 @@
+{# src/Blogger/BlogBundle/Resouces/views/Post/show.html.twig #}
+{% extends 'BloggerBlogBundle::layout.html.twig' %}
+
+{% block title %}{{ post.title }}{% endblock %}
+
+{% block body %}
+    <article class="post">
+        <header>
+            <div class="date"><time datetime="{{ post.created|date('c') }}">{{ post.created|date('l, F j, Y') }}</time></div>
+            <h2>{{ post.title }}</h2>
+        </header>
+        <img src="{{ asset(['images/', post.image]|join) }}" alt="{{ post.title }} image not found" class="large" />
+        <div>
+            <p>{{ post.post }}</p>
+        </div>
+        <footer class="meta">
+            <p>Comments: <a href="{{ path('BloggerBlogBundle_post_show', { 'id': post.id, 'slug': post.slug }) }}#comments">{{ post.comments|length }}</a></p>
+            <p>Posted by <span class="highlight">{{ post.author }}</span> at {{ post.created|date('h:iA') }}</p>
+            <p>Category: <span class="highlight">{{ post.category }} </span></p>
+            <p>Tags: <span class="highlight">{{ post.tagsAsString }} </span></p>
+        </footer>
+    </article>
+    <section class="comments" id="comments">
+        <section class="previous-comments">
+            <h3>Comments</h3>
+            {% include 'BloggerBlogBundle:Comment:index.html.twig' with { 'comments': comments } %}
+            <h3>Add Comment</h3>
+            {{ render(controller('BloggerBlogBundle:Comment:new', { 'postId': post.id })) }}
+        </section>
+    </section>
+{% endblock %}

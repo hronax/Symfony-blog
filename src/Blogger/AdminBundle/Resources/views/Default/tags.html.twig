@@ -2,13 +2,13 @@
 
 {% block body %}
     <h2>Edit Tags:</h2>
-    <h2 id="add_blog"><a href="{{ path('BloggerAdminBundle_tag_new') }}">+ Add new Tag</a></h2>
+    <h2 id="add_post"><a href="{{ path('BloggerAdminBundle_tag_new') }}">+ Add new Tag</a></h2>
     {% for tag in pagination %}
-        <article class="blog">
+        <article class="post">
             <header>
                 <h3><a href="{{ path('BloggerAdminBundle_tag_edit', { 'tagId': tag.id }) }}">{{ tag.name }}</a> | {{ tag.slug }}</h3>
             </header>
-            <div class="date">Blogs in tag: {{ tag.blogCount }}</div>
+            <div class="date">Posts in tag: {{ tag.postCount }}</div>
                 <a class="delete_link" href="{{ path('BloggerAdminBundle_tag_delete', { 'tagId': tag.id }) }}">Delete tag</a>
         </article>
     {% else %}

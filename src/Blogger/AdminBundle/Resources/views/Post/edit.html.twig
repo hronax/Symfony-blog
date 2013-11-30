@@ -1,0 +1,6 @@
+{% extends 'BloggerAdminBundle::layout.html.twig' %}
+
+{% block body %}
+    <h2>Edit the Post id: {{ postId }}</h2>
+    {{ render(controller('BloggerAdminBundle:Post:edit', {'postId': postId})) }}
+{% endblock %}

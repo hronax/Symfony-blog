@@ -64,13 +64,13 @@ form.blogger ul li {
     line-height: 30px
 }
 
-/** Blog block */
+/** Post block */
 
-.blog {
+.post {
     margin-bottom: 20px;
 }
 
-.blog img {
+.post img {
     width: 190px;
     float: left;
     padding: 5px;
@@ -78,28 +78,28 @@ form.blogger ul li {
     margin: 0 10px 10px 0;
 }
 
-.blog .meta {
+.post .meta {
     clear: left;
     margin-bottom: 20px;
 }
 
-.blog .snippet p.continue {
+.post .snippet p.continue {
     margin-bottom: 0;
     text-align: right;
 }
 
-.blog .meta {
+.post .meta {
     font-style: italic;
     font-size: 12px;
     color: #666;
 }
 
-.blog .meta p {
+.post .meta p {
     margin-bottom: 5px;
     line-height: 1.2em;
 }
 
-.blog img.large {
+.post img.large {
     width: 300px;
     min-height: 165px;
 }

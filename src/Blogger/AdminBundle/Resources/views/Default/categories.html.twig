@@ -2,7 +2,7 @@
 
 {% block body %}
     <h2>Edit Categories:</h2>
-    <h2 id="add_blog"><a href="{{ path('BloggerAdminBundle_category_new') }}">+ Add new Category</a></h2>
+    <h2 id="add_post"><a href="{{ path('BloggerAdminBundle_category_new') }}">+ Add new Category</a></h2>
     {% for cat in pagination %}
         <article class="blog isDefault{% if cat.isDefault %}{{ 1 }}{% else %}{{ 0 }}{% endif %}">
             <header>

@@ -15,19 +15,19 @@ class TagRepository extends EntityRepository
     public function getTagList()
     {
         $qb = $this->createQueryBuilder('t')
-            ->select('t, b')
-            ->leftJoin('t.blogs', 'b')
+            ->select('t', 'p')
+            ->leftJoin('t.posts', 'p')
             ->addOrderBy('t.name', 'ASC');
 
         return $qb->getQuery()
             ->getResult();
     }
 
-    public function geTagListWithBlogs() {
+    public function geTagListWithPosts() {
         $qb = $this->createQueryBuilder('t')
-            ->select('t', 'b')
-            ->innerJoin('t.blogs', 'b')
-            ->where('b.posted = 1')
+            ->select('t', 'p')
+            ->innerJoin('t.posts', 'p')
+            ->where('p.posted = 1')
             ->addOrderBy('t.name', 'ASC');
 
         return $qb->getQuery()
@@ -53,7 +53,7 @@ class TagRepository extends EntityRepository
 
     public function getTagWeights()
     {
-        $tags = $this->geTagListWithBlogs();
+        $tags = $this->geTagListWithPosts();
         if (empty($tags))
             return $tags;
 
@@ -63,18 +63,18 @@ class TagRepository extends EntityRepository
         $min = 10000000;
 
         foreach($tags as $tag) {
-            $blogCount = $tag->getBlogCount();
-            if($blogCount < $min)
-                $min = $blogCount;
-            if($blogCount > $max)
-                $max = $blogCount;
+            $postCount = $tag->getPostCount();
+            if($postCount < $min)
+                $min = $postCount;
+            if($postCount > $max)
+                $max = $postCount;
         }
 
         foreach($tags as $tag) {
-            $blogCount = $tag->getBlogCount();
+            $postCount = $tag->getPostCount();
             $maxFont = 24;
             $minFont = 12;
-            $weight = ($blogCount-$min+1) / ($max-$min+1) * ($maxFont - $minFont) + $minFont;
+            $weight = ($postCount-$min+1) / ($max-$min+1) * ($maxFont - $minFont) + $minFont;
             $tag->setWeight($weight);
         }
 
