@@ -35,6 +35,17 @@ class Category
     protected $slug;
 
     /**
+     * @ORM\ManyToOne(targetEntity="Category", inversedBy="children")
+     */
+    protected $parent;
+
+    /**
+     * @ORM\OneToMany(targetEntity="Category", mappedBy="parent")
+     */
+    protected $children;
+
+
+    /**
      * @ORM\Column(type="boolean")
      */
     protected $isDefault;
@@ -45,6 +56,7 @@ class Category
     public function __construct()
     {
         $this->blogs = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->children = new \Doctrine\Common\Collections\ArrayCollection();
         $this->isDefault = false;
     }
     
@@ -177,5 +189,61 @@ class Category
     public function __toString()
     {
         return $this->getName();
+    }
+
+    /**
+     * Set parent
+     *
+     * @param \Blogger\BlogBundle\Entity\Category $parent
+     * @return Category
+     */
+    public function setParent(\Blogger\BlogBundle\Entity\Category $parent = null)
+    {
+        $this->parent = $parent;
+    
+        return $this;
+    }
+
+    /**
+     * Get parent
+     *
+     * @return \Blogger\BlogBundle\Entity\Category 
+     */
+    public function getParent()
+    {
+        return $this->parent;
+    }
+
+    /**
+     * Add children
+     *
+     * @param \Blogger\BlogBundle\Entity\Category $children
+     * @return Category
+     */
+    public function addChildren(\Blogger\BlogBundle\Entity\Category $children)
+    {
+        $this->children[] = $children;
+    
+        return $this;
+    }
+
+    /**
+     * Remove children
+     *
+     * @param \Blogger\BlogBundle\Entity\Category $children
+     */
+    public function removeChildren(\Blogger\BlogBundle\Entity\Category $children)
+    {
+        $this->children->removeElement($children);
+    }
+
+    /**
+     * Get children
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getChildren()
+    {
+        return $this->children;
     }
 }

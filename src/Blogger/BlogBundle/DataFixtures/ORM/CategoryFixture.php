@@ -38,6 +38,7 @@ class CategoryFixtures extends AbstractFixture implements OrderedFixtureInterfac
 
         $category5 = new Category();
         $category5->setIsDefault(0);
+        $category5->setParent($category2);
         $category5->setName('Lyrics');
         $category5->setSlug('lyrics');
         $manager->persist($category5);

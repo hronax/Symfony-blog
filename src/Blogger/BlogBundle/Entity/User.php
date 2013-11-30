@@ -76,7 +76,8 @@ class User implements AdvancedUserInterface, \Serializable
      */
     public function getSalt()
     {
-        return $this->salt;
+        //return $this->salt;
+        return '';
     }
 
     /**
@@ -251,5 +252,9 @@ class User implements AdvancedUserInterface, \Serializable
     public function removeRole(\Blogger\BlogBundle\Entity\Role $roles)
     {
         $this->roles->removeElement($roles);
+    }
+
+    public function __toString() {
+        return $this->$username;
     }
 }
