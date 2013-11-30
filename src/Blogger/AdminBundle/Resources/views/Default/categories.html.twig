@@ -8,10 +8,10 @@
             <header>
                 <h3><a href="{{ path('BloggerAdminBundle_category_edit', { 'catId': cat.id }) }}">{{ cat.name }}</a> | {{ cat.slug }}</h3>
             </header>
-            <div class="date">Blogs in category: {{ cat.blogCount }}</div>
-            {#% if cat.parent %}
-            <div class="date">Parent category: {{ cat.parent.id }}. {{ cat.parent.name }}</div>
-            {% endif %#}
+            <div class="date">Blogs in category: {{ cat.blogCount(false) }}</div>
+            {% if cat.parent %}
+            <div class="date">Parent category: {{ cat.parent.name }}</div>
+            {% endif %}
             {% if cat.isDefault %}
             {% else %}
             <a class="delete_link" href="{{ path('BloggerAdminBundle_category_delete', { 'catId': cat.id }) }}">Delete Category</a>

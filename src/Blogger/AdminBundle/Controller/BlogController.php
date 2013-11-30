@@ -44,6 +44,7 @@ class BlogController extends Controller
             $blog = $this->setBlogTags($blog);
 
             $em->persist($blog);
+            $em->getRepository('BloggerBlogBundle:Category')->recountBlogCountForAllCategories();
             $em->flush();
 
             return $this->redirect($this->generateUrl('BloggerAdminBundle_homepage'));
@@ -99,6 +100,7 @@ class BlogController extends Controller
             $blog = $this->setBlogTags($blog);
 
             $em->persist($blog);
+            $em->getRepository('BloggerBlogBundle:Category')->recountBlogCountForAllCategories();
             $em->flush();
 
             return $this->redirect($this->generateUrl('BloggerAdminBundle_homepage'));
@@ -122,6 +124,7 @@ class BlogController extends Controller
         }
 
         $em->remove($blog);
+        $em->getRepository('BloggerBlogBundle:Category')->recountBlogCountForAllCategories();
         $em->flush();
 
         return $this->redirect($this->generateUrl('BloggerAdminBundle_homepage'));

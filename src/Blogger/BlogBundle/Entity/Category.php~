@@ -64,7 +64,6 @@ class Category
         $this->parent = null;
         $this->children = new \Doctrine\Common\Collections\ArrayCollection();
         $this->isDefault = false;
-        $this->blogCount = 0;
     }
 
     /**
@@ -144,6 +143,20 @@ class Category
     public function getIsDefault()
     {
         return $this->isDefault;
+    }
+
+    public function getBlogCount()
+    {
+        return $this->blogs->count();
+    }
+
+    public function getPostedBlogCount() {
+        $postedBlogCount = 0;
+        foreach($this->blogs as $blog) {
+            if($blog->getPosted() == 1)
+                $postedBlogCount++;
+        }
+        return $postedBlogCount;
     }
 
     /**
@@ -252,25 +265,5 @@ class Category
     public function getChildren()
     {
         return $this->children;
-    }
-
-    public function getBlogCount($onlyPublic = true)
-    {
-        if ($onlyPublic)
-            return $this->blogCount;
-        return $this->blogs->count();
-    }
-
-    /**
-     * Set blogCount
-     *
-     * @param integer $blogCount
-     * @return Category
-     */
-    public function setBlogCount($blogCount)
-    {
-        $this->blogCount = $blogCount;
-    
-        return $this;
     }
 }

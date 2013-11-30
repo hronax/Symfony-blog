@@ -83,7 +83,7 @@ class PageController extends Controller
             ->getLatestComments($commentLimit);
 
         $categories = $em->getRepository('BloggerBlogBundle:Category')
-            ->getCategoriesListWithBlogs();
+            ->getCategoriesTree();
 
         return $this->render('BloggerBlogBundle:Page:sidebar.html.twig', array(
             'latestComments'    => $latestComments,

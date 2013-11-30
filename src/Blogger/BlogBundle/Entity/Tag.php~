@@ -4,6 +4,8 @@ namespace Blogger\BlogBundle\Entity;
 use Blogger\BlogBundle\HelpTools\HelpTools;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\ArrayCollection;
+use Symfony\Component\Validator\Mapping\ClassMetadata;
+use Symfony\Component\Validator\Constraints\NotBlank;
 
 /**
  * @ORM\Entity(repositoryClass="Blogger\BlogBundle\Entity\Repository\TagRepository")
@@ -39,7 +41,7 @@ class Tag
      */
     public function __construct()
     {
-        $this->blogs = new ArrayCollection();
+        $this->blogs = new \Doctrine\Common\Collections\ArrayCollection();
         $this->weight = 0;
     }
     

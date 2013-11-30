@@ -107,6 +107,7 @@ class CategoryController extends Controller
 
             if($isUnique) {
                 $em->persist($category);
+                $em->getRepository('BloggerBlogBundle:Category')->recountBlogCountForAllCategories();
                 $em->flush();
 
                 return $this->redirect($this->generateUrl('BloggerAdminBundle_default_categories'));
@@ -145,6 +146,7 @@ class CategoryController extends Controller
         }
 
         $em->remove($category);
+        $em->getRepository('BloggerBlogBundle:Category')->recountBlogCountForAllCategories();
         $em->flush();
 
         return $this->redirect($this->generateUrl('BloggerAdminBundle_default_categories'));

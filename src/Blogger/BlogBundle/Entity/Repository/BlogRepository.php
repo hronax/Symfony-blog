@@ -32,13 +32,16 @@ class BlogRepository extends EntityRepository
     }
 
     public function getBlogsInCategory($catId) {
+        $em = $this->getEntityManager();
+        $categories = $em->getRepository('BloggerBlogBundle:Category')->getChildCategories($catId);
+
         $qb = $this->createQueryBuilder('b')
             ->select('b', 'c', 't', 'cat')
             ->leftJoin('b.comments', 'c')
             ->leftJoin('b.tags', 't')
             ->leftJoin('b.category', 'cat')
-            ->where('b.category = :id')
-            ->setParameter('id', $catId)
+            ->where('b.category IN (:ids)')
+            ->setParameter('ids', $categories)
             ->addOrderBy('b.created', 'DESC');
 
         $qb->andWhere('b.posted = :posted')
@@ -63,5 +66,21 @@ class BlogRepository extends EntityRepository
 
         return $qb->getQuery()
             ->getResult();
+    }
+
+    public function getBlogCountInCategory($category) {
+        $em = $this->getEntityManager();
+        $categoryRepository = $em->getRepository('BloggerBlogBundle:Category');
+
+        $categoryList = $categoryRepository->findChildren($category);
+
+        $qb = $this->createQueryBuilder('b')
+            ->select('count(b)')
+            ->innerJoin('b.category', 'c')
+            ->where('b.category IN (:ids)')
+            ->andWhere('b.posted = 1')
+            ->setParameter('ids', $categoryList);
+
+        return $qb->getQuery()->getSingleScalarResult();
     }
 }

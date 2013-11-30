@@ -4,13 +4,11 @@
     <header>
         <h3>Categories</h3>
     </header>
-    <p class="categories">
-        <ul>
-        {% for cat in categories %}
-        <li><a href="{{ path('BloggerBlogBundle_category', { 'slug': cat.slug }) }}">{{ cat.name }}</a> ({{ cat.postedBlogCount }})</li>
+    <ul class="categories">
+        {% for category in categories %}
+        <li style="padding-left: {{ category['offset']*20 }}px"><a href="{{ path('BloggerBlogBundle_category', { 'slug': category['category'].slug }) }}">{{ category['category'].name }}</a> ({{ category['category'].blogCount }})</li>
         {% endfor %}
-        </ul>
-    </p>
+    </ul>
 </section>
 <section class="section">
     <header>
@@ -39,7 +37,6 @@
                 </p>
             </header>
             <p>{{ comment.comment }}</p>
-            </p>
         </article>
     {% else %}
         <p>There are no recent comments</p>

@@ -12,12 +12,14 @@ use Doctrine\ORM\EntityRepository;
  */
 class CategoryRepository extends EntityRepository
 {
-    public function getCategoriesList()
+    public function getCategoriesList($withEmpty = false)
     {
         $qb = $this->createQueryBuilder('c')
             ->select('c, b')
             ->leftJoin('c.blogs', 'b')
             ->addOrderBy('c.name', 'ASC');
+            if(!$withEmpty)
+                $qb->where('b.posted = 1');
 
         return $qb->getQuery()
             ->getResult();
@@ -30,17 +32,6 @@ class CategoryRepository extends EntityRepository
 
         return $qb->getQuery()
             ->getOneOrNullResult();
-    }
-
-    public function getCategoriesListWithBlogs() {
-        $qb = $this->createQueryBuilder('c')
-            ->select('c', 'b')
-            ->innerJoin('c.blogs', 'b')
-            ->where('b.posted = 1')
-            ->addOrderBy('c.name', 'ASC');
-
-        return $qb->getQuery()
-            ->getResult();
     }
 
     public function isCategorySlugUnique($slug) {
@@ -60,5 +51,65 @@ class CategoryRepository extends EntityRepository
             ->where('c.slug = :slug')
             ->setParameter('slug', $slug);
         return $qb->getQuery()->getOneOrNullResult();
+    }
+
+    public function getCategoriesTree() {
+        $categories = $this->getCategoriesList();
+        $offsets = array();
+        foreach($categories as $category)
+            $offsets[$category->getId()] = -1;
+
+        $tree = $this->buildTree($categories, $offsets);
+
+        $treeWithOffsets = array();
+        foreach ($tree as $category) {
+            $treeWithOffsets[] = array (
+                'category' => $category,
+                'offset' => $offsets[$category->getId()]
+            );
+        }
+
+        return $treeWithOffsets;
+    }
+
+    public function buildTree($elements, &$offsets, $parentId = -1) {
+        $tree = array();
+
+        foreach ($elements as $element) {
+            $offsets[$element->getId()]++;
+            if (!$element->getParent() || ($element->getParent() && ($element->getParent()->getId() == $parentId))) {
+                $tree[] = $element;
+                if($element->getChildren()) {
+                    $tree = array_merge($tree, $this->buildTree($element->getChildren(), $offsets, $element->getId()));
+                }
+            }
+        }
+        return $tree;
+    }
+
+    public function getChildCategories($id) {
+        $category = $this->find($id);
+
+        return $this->findChildren($category);
+    }
+
+    public function findChildren($category) {
+        $categories = array();
+        $categories[] = $category->getId();
+        if($category->getChildren()) {
+            foreach($category->getChildren() as $child) {
+                $categories = array_merge($categories, $this->findChildren($child));
+            }
+        }
+        return $categories;
+    }
+
+    public function recountBlogCountForAllCategories() {
+        $categories = $this->getCategoriesList();
+
+        foreach ($categories as $category) {
+            $em = $this->getEntityManager();
+            $category->setBlogCount($em->getRepository('BloggerBlogBundle:Blog')->getBlogCountInCategory($category));
+        }
     }
 }

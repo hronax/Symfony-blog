@@ -7,7 +7,6 @@ use Symfony\Component\Security\Core\Exception\UsernameNotFoundException;
 use Symfony\Component\Security\Core\Exception\UnsupportedUserException;
 use Doctrine\ORM\EntityRepository;
 use Doctrine\ORM\NoResultException;
-use Blogger\BlogBundle\Entity\User;
 
 class UserRepository extends EntityRepository implements UserProviderInterface
 {

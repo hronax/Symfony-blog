@@ -33,7 +33,7 @@ class DefaultController extends Controller
             ->getManager();
 
         $categories = $em->getRepository('BloggerBlogBundle:Category')
-            ->getCategoriesList();
+            ->getCategoriesList(true);
 
         $paginator  = $this->get('knp_paginator');
         $pagination = $paginator->paginate(
