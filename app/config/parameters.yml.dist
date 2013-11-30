@@ -14,4 +14,4 @@ parameters:
     locale:            en
     secret:            ThisTokenIsNotSoSecretChangeIt
 
-    blogger_blog.emails.contact_email: contact@email.com
+    contact_email: contact@email.com
