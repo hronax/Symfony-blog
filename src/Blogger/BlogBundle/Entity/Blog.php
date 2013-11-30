@@ -60,7 +60,7 @@ class Blog
 
     /**
      * @ORM\ManyToOne(targetEntity="Category", inversedBy="blogs")
-     * @ORM\JoinColumn(name="category_id", referencedColumnName="id")
+     * @ORM\JoinColumn(name="category_id", referencedColumnName="id", onDelete="SET NULL")
      */
     protected $category;
 
