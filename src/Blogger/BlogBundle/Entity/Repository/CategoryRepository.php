@@ -27,6 +27,7 @@ class CategoryRepository extends EntityRepository
         $qb = $this->createQueryBuilder('c')
             ->select('c')
             ->where('c.id = 1');
+
         return $qb->getQuery()
             ->getOneOrNullResult();
     }

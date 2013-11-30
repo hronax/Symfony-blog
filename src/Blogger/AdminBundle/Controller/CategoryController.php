@@ -140,7 +140,7 @@ class CategoryController extends Controller
         }
 
         foreach ($category->getBlogs() AS $blog) {
-            $blog->setCategory($em->getRepository('BloggerBlogBundle:Category')->getDefaultCategory()[0]);
+            $blog->setCategory($em->getRepository('BloggerBlogBundle:Category')->getDefaultCategory());
             $em->persist($blog);
         }
 
