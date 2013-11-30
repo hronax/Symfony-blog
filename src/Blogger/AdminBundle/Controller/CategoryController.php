@@ -93,7 +93,6 @@ class CategoryController extends Controller
         $em = $this->getDoctrine()
             ->getManager();
         $category = $em->getRepository('BloggerBlogBundle:Category')->find($catId);
-
         $form  = $this->createForm(new CategoryType(), $category);
         $form->submit($request);
 

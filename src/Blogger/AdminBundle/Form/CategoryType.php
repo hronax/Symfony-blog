@@ -23,6 +23,13 @@ class CategoryType extends AbstractType
                     'required' => false
                 )
             )
+            ->add(
+                'parent',
+                null,
+                array (
+                    'required' => false
+                )
+            )
         ;
     }
     

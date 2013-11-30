@@ -44,7 +44,6 @@ class Category
      */
     protected $children;
 
-
     /**
      * @ORM\Column(type="boolean")
      */
@@ -56,10 +55,11 @@ class Category
     public function __construct()
     {
         $this->blogs = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->parent = null;
         $this->children = new \Doctrine\Common\Collections\ArrayCollection();
         $this->isDefault = false;
     }
-    
+
     /**
      * Get id
      *
@@ -189,6 +189,20 @@ class Category
     public function __toString()
     {
         return $this->getName();
+    }
+
+    public function setTableDefinition()
+    {
+        $this->hasColumn('name', 'string', 255);
+    }
+
+    public function setUp()
+    {
+        $options = array(
+            'hasManyRoots'   => true,
+            'rootColumnName' => 'root_id'
+        );
+        $this->actAs('NestedSet', $options);
     }
 
     /**
