@@ -55,4 +55,28 @@ class UserRepository extends EntityRepository implements UserProviderInterface
         return $this->getEntityName() === $class
         || is_subclass_of($class, $this->getEntityName());
     }
+
+    public function getUserList()
+    {
+        $qb = $this->createQueryBuilder('u')
+            ->select('u')
+            ->addOrderBy('u.username', 'ASC');
+
+        return $qb->getQuery()
+            ->getResult();
+    }
+
+    public function isUserUnique($username, $email) {
+        $qb = $this->createQueryBuilder('u')
+            ->select('u')
+            ->where('u.username = :username')
+            ->orWhere('u.email = :email')
+            ->setParameters(
+                array(
+                    'username' => $username,
+                    'email' => $email
+                )
+            );
+        return !$qb->getQuery()->getOneOrNullResult();
+    }
 }

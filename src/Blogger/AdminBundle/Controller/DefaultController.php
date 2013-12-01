@@ -67,6 +67,26 @@ class DefaultController extends Controller
         ));
     }
 
+    public function usersAction()
+    {
+        $em = $this->getDoctrine()
+            ->getManager();
+
+        $users = $em->getRepository('BloggerBlogBundle:User')
+            ->getUserList();
+
+        $paginator  = $this->get('knp_paginator');
+        $pagination = $paginator->paginate(
+            $users,
+            $this->get('request')->query->get('page', 1)/*page number*/,
+            5/*limit per page*/
+        );
+
+        return $this->render('BloggerAdminBundle:Default:users.html.twig', array(
+            'pagination' => $pagination
+        ));
+    }
+
     public function sidebarAction()
     {
         return $this->render('BloggerAdminBundle:Default:sidebar.html.twig');

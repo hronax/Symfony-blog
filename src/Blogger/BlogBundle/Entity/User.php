@@ -256,4 +256,13 @@ class User implements AdvancedUserInterface, \Serializable
     public function __toString() {
         return $this->$username;
     }
+
+    public function getRolesAsString() {
+        $roles = $this->getRoles();
+        $rolesNameArray = array();
+        foreach($roles as $role) {
+            $rolesNameArray[] = $role->getName();
+        }
+        return implode(", ", $rolesNameArray);
+    }
 }

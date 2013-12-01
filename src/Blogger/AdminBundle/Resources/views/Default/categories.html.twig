@@ -4,11 +4,11 @@
     <h2>Edit Categories:</h2>
     <h2 id="add_post"><a href="{{ path('BloggerAdminBundle_category_new') }}">+ Add new Category</a></h2>
     {% for cat in pagination %}
-        <article class="blog isDefault{% if cat.isDefault %}{{ 1 }}{% else %}{{ 0 }}{% endif %}">
+        <article class="post isDefault{% if cat.isDefault %}{{ 1 }}{% else %}{{ 0 }}{% endif %}">
             <header>
                 <h3><a href="{{ path('BloggerAdminBundle_category_edit', { 'catId': cat.id }) }}">{{ cat.name }}</a> | {{ cat.slug }}</h3>
             </header>
-            <div class="date">Blogs in category: {{ cat.blogCount(false) }}</div>
+            <div class="date">Posts in category: {{ cat.postCount(false) }}</div>
             {% if cat.parent %}
             <div class="date">Parent category: {{ cat.parent.name }}</div>
             {% endif %}

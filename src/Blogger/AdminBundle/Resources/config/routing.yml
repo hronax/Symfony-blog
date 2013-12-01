@@ -4,34 +4,34 @@ BloggerAdminBundle_homepage:
 
 ############### posts
 BloggerAdminBundle_post_edit:
-    pattern:  /edit/post/{postId}
+    pattern:  /post/edit/{postId}
     defaults: { _controller: BloggerAdminBundle:Post:editPost }
     requirements:
         _method:  GET|POST
         postId: \d+
 
 BloggerAdminBundle_post_delete:
-    pattern:  /delete/post/{postId}
+    pattern:  /post/delete/{postId}
     defaults: { _controller: BloggerAdminBundle:Post:delete }
     requirements:
         _method:  GET
         postId: \d+
 
 BloggerAdminBundle_post_create:
-    pattern:  /create-post
+    pattern:  /post/create
     defaults: { _controller: BloggerAdminBundle:Post:create }
     requirements:
         _method:  GET|POST
 
 BloggerAdminBundle_post_submitEdition:
-    pattern:  /edit-post/{postId}
+    pattern:  /post/submit/{postId}
     defaults: { _controller: BloggerAdminBundle:Post:submitEdition }
     requirements:
         _method:  GET|POST
         postId: \d+
 
 BloggerAdminBundle_post_new:
-    pattern:  /new-post
+    pattern:  /post/new
     defaults: { _controller: BloggerAdminBundle:Post:newPost }
     requirements:
         _method:  GET
@@ -40,34 +40,34 @@ BloggerAdminBundle_post_new:
 
 ############## categories
 BloggerAdminBundle_category_edit:
-    pattern:  /edit/category/{catId}
+    pattern:  /categories/edit/{catId}
     defaults: { _controller: BloggerAdminBundle:Category:editCategory }
     requirements:
         _method:  GET|POST
         catId: \d+
 
 BloggerAdminBundle_category_delete:
-    pattern:  /delete/category/{catId}
+    pattern:  /categories/delete/{catId}
     defaults: { _controller: BloggerAdminBundle:Category:delete }
     requirements:
         _method:  GET
         catId: \d+
 
 BloggerAdminBundle_category_create:
-    pattern:  /create-category
+    pattern:  /categories/create
     defaults: { _controller: BloggerAdminBundle:Category:create }
     requirements:
         _method:  GET|POST
 
 BloggerAdminBundle_category_submitEdition:
-    pattern:  /edit-category/{catId}
+    pattern:  /categories/sumbit/{catId}
     defaults: { _controller: BloggerAdminBundle:Category:submitEdition }
     requirements:
         _method:  GET|POST
         catId: \d+
 
 BloggerAdminBundle_category_new:
-    pattern:  /new-category
+    pattern:  /categories/new
     defaults: { _controller: BloggerAdminBundle:Category:newCategory }
     requirements:
         _method:  GET
@@ -81,34 +81,34 @@ BloggerAdminBundle_default_categories:
 
 ############## tags
 BloggerAdminBundle_tag_edit:
-    pattern:  /edit/tag/{tagId}
+    pattern:  /tags/edit/{tagId}
     defaults: { _controller: BloggerAdminBundle:Tag:editTag }
     requirements:
         _method:  GET|POST
         tagId: \d+
 
 BloggerAdminBundle_tag_delete:
-    pattern:  /delete/tag/{tagId}
+    pattern:  /tags/delete/{tagId}
     defaults: { _controller: BloggerAdminBundle:Tag:delete }
     requirements:
         _method:  GET
         tagId: \d+
 
 BloggerAdminBundle_tag_create:
-    pattern:  /create-tag
+    pattern:  /tags/create
     defaults: { _controller: BloggerAdminBundle:Tag:create }
     requirements:
         _method:  GET|POST
 
 BloggerAdminBundle_tag_submitEdition:
-    pattern:  /edit-tag/{tagId}
+    pattern:  /tags/submit/{tagId}
     defaults: { _controller: BloggerAdminBundle:Tag:submitEdition }
     requirements:
         _method:  GET|POST
         tagId: \d+
 
 BloggerAdminBundle_tag_new:
-    pattern:  /new-tag
+    pattern:  /tags/new
     defaults: { _controller: BloggerAdminBundle:Tag:newTag }
     requirements:
         _method:  GET
@@ -119,3 +119,44 @@ BloggerAdminBundle_default_tags:
     requirements:
             _method:  GET
 ############## end of tags
+
+############## users
+BloggerAdminBundle_user_edit:
+    pattern:  /users/edit/{userId}
+    defaults: { _controller: BloggerAdminBundle:User:editUser }
+    requirements:
+        _method:  GET|POST
+        userId: \d+
+
+BloggerAdminBundle_user_delete:
+    pattern:  /users/delete/{userId}
+    defaults: { _controller: BloggerAdminBundle:User:delete }
+    requirements:
+        _method:  GET
+        userId: \d+
+
+BloggerAdminBundle_user_create:
+    pattern:  /users/create
+    defaults: { _controller: BloggerAdminBundle:User:create }
+    requirements:
+        _method:  GET|POST
+
+BloggerAdminBundle_user_submitEdition:
+    pattern:  /users/submit/{userId}
+    defaults: { _controller: BloggerAdminBundle:User:submitEdition }
+    requirements:
+        _method:  GET|POST
+        userId: \d+
+
+BloggerAdminBundle_user_new:
+    pattern:  /users/new
+    defaults: { _controller: BloggerAdminBundle:User:newUser }
+    requirements:
+        _method:  GET
+
+BloggerAdminBundle_default_users:
+    pattern:  /users
+    defaults: { _controller: BloggerAdminBundle:Default:users }
+    requirements:
+            _method:  GET
+############## end of users
