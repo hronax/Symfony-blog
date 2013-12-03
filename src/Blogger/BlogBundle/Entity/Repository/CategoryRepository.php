@@ -34,12 +34,18 @@ class CategoryRepository extends EntityRepository
             ->getOneOrNullResult();
     }
 
-    public function isCategorySlugUnique($slug) {
+    public function isCategorySlugUnique($slug, $id = -1) {
         $qb = $this->createQueryBuilder('c')
             ->select('c')
             ->where('c.slug = :slug')
-            ->setParameter('slug', $slug);
-        return $qb->getQuery()->getOneOrNullResult();
+            ->andWhere('c.id = :id')
+            ->setParameters(
+                array(
+                    'slug' => $slug,
+                    'id' => $id
+                )
+            );
+        return !$qb->getQuery()->getOneOrNullResult();
     }
 
     public function findBySlug($slug) {

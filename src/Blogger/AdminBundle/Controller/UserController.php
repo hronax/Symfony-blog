@@ -44,7 +44,7 @@ class UserController extends Controller
                 $encoder = $this->container->get('blogger.blog.sha256salted_encoder');
                 $password = $encoder->encodePassword('MyPass', $user->getSalt());
                 $user->setPassword($password);
-                $role = $em->getRepository('BloggerBlogBundle:Role')->findByName('user');
+                $role = $em->getRepository('BloggerBlogBundle:Role')->findByName('admin')[0];
                 $user->addRole($role);
                 $em->persist($user);
                 $em->flush();
