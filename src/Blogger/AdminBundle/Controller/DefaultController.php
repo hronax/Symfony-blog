@@ -3,7 +3,7 @@
 namespace Blogger\AdminBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Knp\Bundle\PaginatorBundle\KnpPaginatorBundle;
+use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 
 class DefaultController extends Controller
 {

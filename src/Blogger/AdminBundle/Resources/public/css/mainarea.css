@@ -48,6 +48,10 @@ form.blogger textarea {
     font-size: 20px;
 }
 
+.sidebar {
+    float:left;
+}
+
 form.blogger input[type="submit"] {
     margin-left: 110px;
     width: 508px;

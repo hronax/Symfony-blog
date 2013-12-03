@@ -2,6 +2,8 @@ parameters:
 #    blogger_blog.example.class: Blogger\BlogBundle\Example
 
 services:
+    blogger.blog.sha256salted_encoder:
+        class: Blogger\BlogBundle\Service\Sha256Salted
     blogger_blog.twig.extension:
         class: Blogger\BlogBundle\Twig\Extensions\BloggerBlogExtension
         tags:

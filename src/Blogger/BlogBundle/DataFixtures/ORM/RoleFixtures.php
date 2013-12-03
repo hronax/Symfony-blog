@@ -20,6 +20,7 @@ class RoleFixtures extends AbstractFixture implements OrderedFixtureInterface
         $role2 = new Role();
         $role2->setName('superadmin');
         $role2->setRole('ROLE_SUPER_ADMIN');
+        $role2->setIsSingle(true);
         $manager->persist($role2);
 
         $role3 = new Role();

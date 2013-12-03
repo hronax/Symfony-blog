@@ -10,3 +10,8 @@ login:
     defaults:  { _controller: BloggerAdminBundle:Security:login }
 login_check:
     path:   /login_check
+logout:
+    path: /logout
+register:
+    path: /register
+    defaults:  { _controller: BloggerAdminBundle:Security:register }

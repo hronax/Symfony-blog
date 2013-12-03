@@ -12,7 +12,7 @@
 
 {% block body %}
     {% if error %}
-        <div>{{ error.message }}</div>
+        <div id="login_error">{{ error.message }}</div>
     {% endif %}
     <form action="{{ path('login_check') }}" method="post">
         <div id="block">

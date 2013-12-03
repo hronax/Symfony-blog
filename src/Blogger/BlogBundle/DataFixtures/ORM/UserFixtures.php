@@ -7,6 +7,7 @@ use Doctrine\Common\DataFixtures\AbstractFixture;
 use Doctrine\Common\DataFixtures\OrderedFixtureInterface;
 use Doctrine\Common\Persistence\ObjectManager;
 use Blogger\BlogBundle\Entity\User;
+use Blogger\BlogBundle\Service\Sha256Salted;
 
 class UserFixtures extends AbstractFixture implements OrderedFixtureInterface
 {
@@ -15,7 +16,7 @@ class UserFixtures extends AbstractFixture implements OrderedFixtureInterface
         $user1 = new User();
         $user1->setUsername('admin');
         $user1->setEmail('admin@symblog.com');
-        $user1->setPassword('2623578');
+        $user1->setPassword(Sha256Salted::encodePasswordStatic('2623578', $user1->getSalt()));
         $user1
             ->addRole($manager->merge($this->getReference('superadmin')));
         $manager->persist($user1);

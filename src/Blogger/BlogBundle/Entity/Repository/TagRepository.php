@@ -34,21 +34,21 @@ class TagRepository extends EntityRepository
             ->getResult();
     }
 
-    public function isTagUnique($name, $slug) {
+    public function isTagUnique($name, $slug, $id = -1) {
         $qb = $this->createQueryBuilder('t')
             ->select('t')
             ->where('t.slug = :slug')
             ->orWhere('t.name = :name')
+            ->andWhere('t.id != :id')
             ->setParameters(
                 array(
                     'slug' => $slug,
-                    'name' => $name
+                    'name' => $name,
+                    'id' => $id
                 )
             );
-        if($qb->getQuery()->getResult())
-            return false;
-        else
-            return true;
+
+        return !$qb->getQuery()->getOneOrNullResult();
     }
 
     public function getTagWeights()

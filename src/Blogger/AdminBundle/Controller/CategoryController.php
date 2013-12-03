@@ -105,7 +105,7 @@ class CategoryController extends Controller
 
             $isUnique = $em->getRepository('BloggerBlogBundle:Category')->isCategorySlugUnique($category->getSlug());
 
-            if($isUnique) {
+            if($isUnique->getId() == $category->getId()) {
                 $em->persist($category);
                 $em->getRepository('BloggerBlogBundle:Category')->recountPostCountForAllCategories();
                 $em->flush();

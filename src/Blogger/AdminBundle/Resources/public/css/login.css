@@ -153,6 +153,10 @@ input{padding-left:40px;}
     width: 100%;
     border-left: 0;
 }
+#login_error {
+    color: #ff0000;
+    text-align: center;
+}
 
 /* Want to see the magic ? So open a webkit browser then remove the comments below !
 

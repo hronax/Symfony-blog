@@ -39,10 +39,7 @@ class CategoryRepository extends EntityRepository
             ->select('c')
             ->where('c.slug = :slug')
             ->setParameter('slug', $slug);
-        if($qb->getQuery()->getResult())
-            return false;
-        else
-            return true;
+        return $qb->getQuery()->getOneOrNullResult();
     }
 
     public function findBySlug($slug) {

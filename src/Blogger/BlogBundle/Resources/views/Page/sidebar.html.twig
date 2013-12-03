@@ -1,5 +1,24 @@
 {# src/Blogger/BlogBundle/Resources/views/Page/sidebar.html.twig #}
-
+<section class="section">
+    {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
+        <header>
+            <h3>User menu</h3>
+        </header>
+        <p>Hello {{ app.user.username }}</p>
+        <ul class="categories">
+            <li><a href="{{ path('login') }}" target="_blank">Go to admin panel</a></li>
+            <li><a href="{{ path('logout') }}">Log out</a></li>
+        </ul>
+    {% else %}
+        <header>
+            <h3>Authorization</h3>
+        </header>
+        <ul class="categories">
+            <li><a href="{{ path('login') }}">Log in</a></li>
+            <li><a href="{{ path('register') }}">Sign in in</a></li>
+        </ul>
+    {% endif %}
+</section>
 <section class="section">
     <header>
         <h3>Categories</h3>

@@ -30,6 +30,11 @@ class Role implements RoleInterface
     private $role;
 
     /**
+     * @ORM\Column(name="is_single", type="boolean")
+     */
+    private $isSingle;
+
+    /**
      * @ORM\ManyToMany(targetEntity="User", mappedBy="roles")
      */
     private $users;
@@ -37,6 +42,7 @@ class Role implements RoleInterface
     public function __construct()
     {
         $this->users = new ArrayCollection();
+        $this->isSingle = false;
     }
 
     /**
@@ -130,5 +136,28 @@ class Role implements RoleInterface
 
     public function __toString() {
         return $this->name;
+    }
+
+    /**
+     * Set isSingle
+     *
+     * @param boolean $isSingle
+     * @return Role
+     */
+    public function setIsSingle($isSingle)
+    {
+        $this->isSingle = $isSingle;
+    
+        return $this;
+    }
+
+    /**
+     * Get isSingle
+     *
+     * @return boolean 
+     */
+    public function getIsSingle()
+    {
+        return $this->isSingle;
     }
 }

@@ -1,0 +1,22 @@
+{% extends 'BloggerAdminBundle::layout.html.twig' %}
+
+{% block body %}
+    <h2>Edit User:</h2>
+    <h2 id="add_post"><a href="{{ path('BloggerAdminBundle_user_new') }}">+ Add new User</a></h2>
+    {% for user in pagination %}
+        <article class="post">
+            <header>
+                <h3><a href="{{ path('BloggerAdminBundle_user_edit', { 'userId': user.id }) }}">{{ user.username }}</a></h3>
+            </header>
+            <div class="date">User roles: {{ user.rolesAsString }}</div>
+            {#{% if user.roles[0].name != 'superadmin' %}#}
+                {#<a class="delete_link" href="{{ path('BloggerAdminBundle_user_delete', { 'userId': user.id }) }}">Delete user</a>#}
+            {#{% endif %}#}
+        </article>
+    {% else %}
+        <p>There are no users for symfony-blog</p>
+    {% endfor %}
+    <div class="navigation">
+        {{ knp_pagination_render(pagination) }}
+    </div>
+{% endblock %}

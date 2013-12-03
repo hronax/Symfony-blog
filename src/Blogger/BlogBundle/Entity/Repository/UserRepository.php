@@ -7,6 +7,7 @@ use Symfony\Component\Security\Core\Exception\UsernameNotFoundException;
 use Symfony\Component\Security\Core\Exception\UnsupportedUserException;
 use Doctrine\ORM\EntityRepository;
 use Doctrine\ORM\NoResultException;
+use Blogger\BlogBundle\Entity\User;
 
 class UserRepository extends EntityRepository implements UserProviderInterface
 {
@@ -14,6 +15,7 @@ class UserRepository extends EntityRepository implements UserProviderInterface
     {
         $q = $this
             ->createQueryBuilder('u')
+            ->select('u, r')
             ->leftJoin('u.roles', 'r')
             ->where('u.username = :username OR u.email = :email')
             ->setParameter('username', $username)
@@ -66,15 +68,17 @@ class UserRepository extends EntityRepository implements UserProviderInterface
             ->getResult();
     }
 
-    public function isUserUnique($username, $email) {
+    public function isUserUnique($username, $email, $id = -1) {
         $qb = $this->createQueryBuilder('u')
             ->select('u')
             ->where('u.username = :username')
             ->orWhere('u.email = :email')
+            ->andWhere('u.id != :id')
             ->setParameters(
                 array(
                     'username' => $username,
-                    'email' => $email
+                    'email' => $email,
+                    'id' => $id
                 )
             );
         return !$qb->getQuery()->getOneOrNullResult();

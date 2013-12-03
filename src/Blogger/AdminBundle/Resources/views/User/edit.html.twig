@@ -1,0 +1,11 @@
+{% extends 'BloggerAdminBundle::layout.html.twig' %}
+
+{% block body %}
+    {% for flashMessage in app.session.flashbag.get('blogger-notice') %}
+        <div class="blogger-notice">
+            {{ flashMessage  }}
+        </div>
+    {% endfor %}
+    <h2>Edit the User id: {{ userId }}</h2>
+    {{ render(controller('BloggerAdminBundle:User:edit', {'userId': userId})) }}
+{% endblock %}

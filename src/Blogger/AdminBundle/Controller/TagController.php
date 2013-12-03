@@ -105,7 +105,7 @@ class TagController extends Controller
             if($tag->getSlug() == '')
                 $tag->setSlug($tag->getName());
 
-            $isUnique = $em->getRepository('BloggerBlogBundle:Tag')->isTagUnique($tag->getName(), $tag->getSlug());
+            $isUnique = $em->getRepository('BloggerBlogBundle:Tag')->isTagUnique($tag->getName(), $tag->getSlug(), $tagId);
 
             if($isUnique) {
                 $em->persist($tag);
