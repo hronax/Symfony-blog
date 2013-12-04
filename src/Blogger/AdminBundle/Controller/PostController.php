@@ -17,8 +17,7 @@ class PostController extends Controller
     public function newAction()
     {
         $post  = new Post();
-        $em = $this->
-            getDoctrine();
+        $em = $this->getDoctrine();
         $post->setCategory($em->getRepository('BloggerBlogBundle:Category')->getDefaultCategory());
         $form  = $this->createForm(new PostType(), $post);
 
@@ -31,21 +30,19 @@ class PostController extends Controller
 
     public function createAction(Request $request)
     {
-        $post  = new Post();
+        $post = new Post();
 
-        $form  = $this->createForm(new PostType(), $post);
+        $form = $this->createForm(new PostType(), $post);
         $form->submit($request);
 
         if ($form->isValid()) {
-
-            $em = $this->getDoctrine()
-                ->getManager();
+            $em = $this->getDoctrine()->getManager();
 
             $post = $this->setPostTags($post);
-            $user = $this->get('security.context')->getToken()->getUser();
-            $post->setAuthor($user->getUsername());
+            $post->setAuthor($this->getUser());
 
             $em->persist($post);
+            $em->flush();
             $em->getRepository('BloggerBlogBundle:Category')->recountPostCountForAllCategories();
             $em->flush();
 
@@ -59,14 +56,16 @@ class PostController extends Controller
         ));
     }
 
-    public function editPostAction($postId) {
+    public function editPostAction($postId)
+    {
         $user = $this->getUser();
         $em = $this->getDoctrine()
             ->getManager();
         $post = $em->getRepository('BloggerBlogBundle:Post')->find($postId);
-        if(!($user->getId() == $post->getAuthor()->getId())) {
+        if(!($user == $post->getAuthor())) {
             throw $this->createNotFoundException('You don\'t have permission to edit this post.');
         }
+
         return $this->render('BloggerAdminBundle:Post:edit.html.twig', array(
             'postId' => $postId
         ));
@@ -74,8 +73,7 @@ class PostController extends Controller
 
     public function editAction($postId)
     {
-        $em = $this->getDoctrine()
-            ->getManager();
+        $em = $this->getDoctrine()->getManager();
         $post = $em->getRepository('BloggerBlogBundle:Post')->find($postId);
 
         if (!$post) {

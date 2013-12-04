@@ -34,9 +34,7 @@ class UserController extends Controller
         $form->submit($request);
 
         if ($form->isValid()) {
-            $em = $this->getDoctrine()
-                ->getManager();
-
+            $em = $this->getDoctrine()->getManager();
 
             $isUnique = $em->getRepository('BloggerBlogBundle:User')->isUserUnique($user->getUsername(), $user->getEmail());
 
