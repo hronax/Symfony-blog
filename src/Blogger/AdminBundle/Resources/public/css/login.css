@@ -157,6 +157,15 @@ input{padding-left:40px;}
     color: #ff0000;
     text-align: center;
 }
+#back_to_site {
+    text-align: center;
+}
+#back_to_site a {
+    border: 1px solid #989898;
+    background: #c8f6ef;
+    padding: 10px;
+    border-radius: 5px;
+}
 
 /* Want to see the magic ? So open a webkit browser then remove the comments below !
 

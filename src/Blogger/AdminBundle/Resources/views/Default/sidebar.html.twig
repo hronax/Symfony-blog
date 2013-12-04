@@ -7,6 +7,9 @@
         <li><a href="{{ path('BloggerAdminBundle_homepage') }}">Manage Posts</a></li>
         <li><a href="{{ path('BloggerAdminBundle_default_categories') }}">Manage Categories</a></li>
         <li><a href="{{ path('BloggerAdminBundle_default_tags') }}">Manage Tags</a></li>
-        <li><a href="{{ path('BloggerAdminBundle_default_users') }}">Manage Users</a></li>
+        {% if app.user.rolesAsString == 'superadmin' %}
+            <li><a href="{{ path('BloggerAdminBundle_default_users') }}">Manage Users</a></li>
+        {% endif %}
+        <li><a href="{{ path('logout') }}">Log out</a></li>
     </ul>
 </section>

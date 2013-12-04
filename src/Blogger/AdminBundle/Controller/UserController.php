@@ -42,10 +42,12 @@ class UserController extends Controller
 
             if($isUnique) {
                 $encoder = $this->container->get('blogger.blog.sha256salted_encoder');
-                $password = $encoder->encodePassword('MyPass', $user->getSalt());
+                $password = $encoder->encodePassword($user->getPassword(), $user->getSalt());
                 $user->setPassword($password);
-                $role = $em->getRepository('BloggerBlogBundle:Role')->findByName('admin')[0];
-                $user->addRole($role);
+                if(!$user->getRoles()) {
+                    $role = $em->getRepository('BloggerBlogBundle:Role')->findByName('admin')[0];
+                    $user->addRole($role);
+                }
                 $em->persist($user);
                 $em->flush();
 
@@ -110,6 +112,15 @@ class UserController extends Controller
             $isUnique = $em->getRepository('BloggerBlogBundle:User')->isUserUnique($user->getUsername(), $user->getEmail(), $userId);
 
             if($isUnique) {
+                if(!$request->get('password')) {
+                    $encoder = $this->container->get('blogger.blog.sha256salted_encoder');
+                    $password = $encoder->encodePassword($user->getPassword(), $user->getSalt());
+                    $user->setPassword($password);
+                }
+                if(!$user->getRoles()) {
+                    $role = $em->getRepository('BloggerBlogBundle:Role')->findByName('admin')[0];
+                    $user->addRole($role);
+                }
                 $em->persist($user);
                 $em->flush();
 

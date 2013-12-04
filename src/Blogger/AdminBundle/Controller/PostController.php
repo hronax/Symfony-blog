@@ -42,6 +42,8 @@ class PostController extends Controller
                 ->getManager();
 
             $post = $this->setPostTags($post);
+            $user = $this->get('security.context')->getToken()->getUser();
+            $post->setAuthor($user->getUsername());
 
             $em->persist($post);
             $em->getRepository('BloggerBlogBundle:Category')->recountPostCountForAllCategories();
@@ -58,9 +60,13 @@ class PostController extends Controller
     }
 
     public function editBlogAction($postId) {
-        return $this->render('BloggerAdminBundle:Post:edit.html.twig', array(
-            'postId' => $postId
-        ));
+        $user = $this->get('security.context')->getToken()->getUser();
+        if($user->getId() == $postId) {
+            return $this->render('BloggerAdminBundle:Post:edit.html.twig', array(
+                'postId' => $postId
+            ));
+        }
+        throw $this->createNotFoundException('You don\'t have permission to edit this post.');
     }
 
     public function editAction($postId)
@@ -115,19 +121,23 @@ class PostController extends Controller
 
     public function deleteAction($postId)
     {
-        $em = $this->getDoctrine()
-            ->getManager();
-        $post = $em->getRepository('BloggerBlogBundle:Post')->find($postId);
+        $user = $this->get('security.context')->getToken()->getUser();
+        if($user->getId() == $postId) {
+            $em = $this->getDoctrine()
+                ->getManager();
+            $post = $em->getRepository('BloggerBlogBundle:Post')->find($postId);
 
-        if (!$post) {
-            throw $this->createNotFoundException('Unable to find Post post.');
+            if (!$post) {
+                throw $this->createNotFoundException('Unable to find Post post.');
+            }
+
+            $em->remove($post);
+            $em->getRepository('BloggerBlogBundle:Category')->recountPostCountForAllCategories();
+            $em->flush();
+
+            return $this->redirect($this->generateUrl('BloggerAdminBundle_homepage'));
         }
-
-        $em->remove($post);
-        $em->getRepository('BloggerBlogBundle:Category')->recountPostCountForAllCategories();
-        $em->flush();
-
-        return $this->redirect($this->generateUrl('BloggerAdminBundle_homepage'));
+        throw $this->createNotFoundException('You don\'t have permission to edit this post.');
     }
 
     public function setPostTags(\Blogger\BlogBundle\Entity\Post $post) {

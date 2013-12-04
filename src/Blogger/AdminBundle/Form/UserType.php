@@ -24,6 +24,7 @@ class UserType extends AbstractType
                     'required' => false
                 )
             )
+            ->add('roles')
             ->add('isActive')
         ;
     }

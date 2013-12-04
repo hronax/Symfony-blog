@@ -4,14 +4,21 @@
     <h2>Edit posts:</h2>
     <h2 id="add_post"><a href="{{ path('BloggerAdminBundle_post_new') }}">+ Add new Post</a></h2>
     {% for post in pagination %}
+        {% set hasRight = (app.user.username == post.author or app.user.rolesAsString == 'superadmin') %}
         <article class="post posted{% if post.posted %}{{ 1 }}{% else %}{{ 0 }}{% endif %}">
             <header>
-                <h3>{{ post.title }} <a href="{{ path('BloggerAdminBundle_post_edit', { 'postId': post.id }) }}">(edit)</a></h3>
+                <h3>{{ post.title }}
+                {% if hasRight %}
+                    <a href="{{ path('BloggerAdminBundle_post_edit', { 'postId': post.id }) }}">(edit)</a></h3>
+                {% endif %}
             </header>
             <div class="date"><time datetime="{{ post.created|date('c') }}">{{ post.created|created_ago }}</time></div>
+            <div class="author"><strong>Author:</strong> {{ post.author }}</div>
             <div class="category"><strong>Category:</strong> {{ post.category }}</div>
             <div class="tags"><strong>Tags:</strong> {{ post.tagsAsString }}</div>
-            <a class="delete_link" href="{{ path('BloggerAdminBundle_post_delete', { 'postId': post.id }) }}">Delete Post</a>
+            {% if hasRight %}
+                <a class="delete_link" href="{{ path('BloggerAdminBundle_post_delete', { 'postId': post.id }) }}">Delete Post</a>
+            {% endif %}
         </article>
     {% else %}
         <p>There are no posts entries for symblog</p>
