@@ -21,12 +21,31 @@ class UserFixtures extends AbstractFixture implements OrderedFixtureInterface
             ->addRole($manager->merge($this->getReference('superadmin')));
         $manager->persist($user1);
 
-        $manager->getRepository('BloggerBlogBundle:Category')->recountPostCountForAllCategories();
+        $user2 = new User();
+        $user2->setUsername('zhron4x');
+        $user2->setEmail('zhron4x@symblog.com');
+        $user2->setPassword(Sha256Salted::encodePasswordStatic('2623578', $user2->getSalt()));
+        $user2
+            ->addRole($manager->merge($this->getReference('admin')));
+        $manager->persist($user2);
+
+        $user3 = new User();
+        $user3->setUsername('simpleuser');
+        $user3->setEmail('simpleuser@symblog.com');
+        $user3->setPassword(Sha256Salted::encodePasswordStatic('2623578', $user3->getSalt()));
+        $user3
+            ->addRole($manager->merge($this->getReference('user')));
+        $manager->persist($user3);
+
         $manager->flush();
+
+        $this->addReference('adminuser', $user1);
+        $this->addReference('zhron4x', $user2);
+        $this->addReference('simpleuser', $user3);
     }
 
     public function getOrder()
     {
-        return 6;
+        return 3;
     }
 }

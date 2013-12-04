@@ -46,6 +46,11 @@ class User implements AdvancedUserInterface, \Serializable
     private $isActive;
 
     /**
+     * @ORM\OneToMany(targetEntity="Post", mappedBy="author")
+     */
+    private $posts;
+
+    /**
      *
      * @ORM\ManyToMany(targetEntity="Role", inversedBy="users")
      * @ORM\JoinTable(name="user_role",
@@ -263,5 +268,38 @@ class User implements AdvancedUserInterface, \Serializable
             $rolesNameArray[] = $role->getName();
         }
         return implode(", ", $rolesNameArray);
+    }
+
+    /**
+     * Add posts
+     *
+     * @param \Blogger\BlogBundle\Entity\Post $posts
+     * @return User
+     */
+    public function addPost(\Blogger\BlogBundle\Entity\Post $posts)
+    {
+        $this->posts[] = $posts;
+    
+        return $this;
+    }
+
+    /**
+     * Remove posts
+     *
+     * @param \Blogger\BlogBundle\Entity\Post $posts
+     */
+    public function removePost(\Blogger\BlogBundle\Entity\Post $posts)
+    {
+        $this->posts->removeElement($posts);
+    }
+
+    /**
+     * Get posts
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getPosts()
+    {
+        return $this->posts;
     }
 }

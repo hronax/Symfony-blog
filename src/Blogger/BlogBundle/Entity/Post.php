@@ -32,7 +32,8 @@ class Post
     protected $slug;
 
     /**
-     * @ORM\Column(type="string", length=100)
+     * @ORM\ManyToOne(targetEntity="User", inversedBy="posts")
+     * @ORM\JoinColumn(name="author_id", referencedColumnName="id", onDelete="SET NULL")
      */
     protected $author;
 
@@ -125,7 +126,7 @@ class Post
      * @param string $author
      * @return Post
      */
-    public function setAuthor($author)
+    public function setAuthor(\Blogger\BlogBundle\Entity\User $author)
     {
         $this->author = $author;
     
@@ -253,7 +254,6 @@ class Post
 
         $this->setCreated(new \DateTime());
         $this->setUpdated(new \DateTime());
-        $this->setAuthor("Admin");
         $this->setPosted(false);
         $this->setImage("default.png");
     }

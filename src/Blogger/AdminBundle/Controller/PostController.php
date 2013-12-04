@@ -59,14 +59,17 @@ class PostController extends Controller
         ));
     }
 
-    public function editBlogAction($postId) {
-        $user = $this->get('security.context')->getToken()->getUser();
-        if($user->getId() == $postId) {
-            return $this->render('BloggerAdminBundle:Post:edit.html.twig', array(
-                'postId' => $postId
-            ));
+    public function editPostAction($postId) {
+        $user = $this->getUser();
+        $em = $this->getDoctrine()
+            ->getManager();
+        $post = $em->getRepository('BloggerBlogBundle:Post')->find($postId);
+        if(!($user->getId() == $post->getAuthor()->getId())) {
+            throw $this->createNotFoundException('You don\'t have permission to edit this post.');
         }
-        throw $this->createNotFoundException('You don\'t have permission to edit this post.');
+        return $this->render('BloggerAdminBundle:Post:edit.html.twig', array(
+            'postId' => $postId
+        ));
     }
 
     public function editAction($postId)
@@ -106,7 +109,7 @@ class PostController extends Controller
             $post = $this->setPostTags($post);
 
             $em->persist($post);
-            $em->getRepository('BloggerBlogBundle:Category')->recountBlogCountForAllCategories();
+            $em->getRepository('BloggerBlogBundle:Category')->recountPostCountForAllCategories();
             $em->flush();
 
             return $this->redirect($this->generateUrl('BloggerAdminBundle_homepage'));
@@ -121,12 +124,11 @@ class PostController extends Controller
 
     public function deleteAction($postId)
     {
-        $user = $this->get('security.context')->getToken()->getUser();
-        if($user->getId() == $postId) {
-            $em = $this->getDoctrine()
-                ->getManager();
-            $post = $em->getRepository('BloggerBlogBundle:Post')->find($postId);
-
+        $user = $this->getUser();
+        $em = $this->getDoctrine()
+            ->getManager();
+        $post = $em->getRepository('BloggerBlogBundle:Post')->find($postId);
+        if($user->getId() === $post->getAuthor()->getId()) {
             if (!$post) {
                 throw $this->createNotFoundException('Unable to find Post post.');
             }

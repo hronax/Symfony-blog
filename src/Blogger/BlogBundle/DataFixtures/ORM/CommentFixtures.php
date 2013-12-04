@@ -118,11 +118,12 @@ class CommentFixtures extends AbstractFixture implements OrderedFixtureInterface
         $comment->setPost($manager->merge($this->getReference('post-5')));
         $manager->persist($comment);
 
+        $manager->getRepository('BloggerBlogBundle:Category')->recountPostCountForAllCategories();
         $manager->flush();
     }
 
     public function getOrder()
     {
-        return 4;
+        return 6;
     }
 }
